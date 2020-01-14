@@ -1,0 +1,21 @@
+/* CSS Document */
+* {
+margin: 0;
+padding: 0;
+list-style:none;
+}
+html {
+height: 100%;
+}
+body {
+height: 100%;
+width:100%;
+background-image:url(../img/bg.png);
+background-repeat:repeat-x repeat-y;
+
+}
+.main {
+width: 1000px;
+height:100%;
+margin:0 auto;
+}

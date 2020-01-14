@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>1025 Design Studio</title>
+<link rel="stylesheet" type="text/css" href="css/index.css">
+<link rel="stylesheet" type="text/css" href="css/left.css">
+<link rel="stylesheet" type="text/css" href="css/right.css">
+<link rel="stylesheet" type="text/css" href="css/banner.css">
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/superslide.2.1.js"></script>
+<script type="text/javascript">
+function getheight()
+  {
+var w = document.documentElement.clientWidth || document.body.clientWidth;
+var h = document.documentElement.clientHeight || document.body.clientHeight;
+  }
+</script>
+</head>
+<body height="h" width="w">
+<!--left nav-->
+<div class="left">
+	<div class="logopart">
+    	<a href="index.html"><img src="img/1025_w.png" class="logo" title="1025"/></a>
+    </div>
+	<div id="nav">
+		<ul>
+		<li class="active"><img src="img/index.png"/>&nbsp;&nbsp;<a href="#">主　　页</a><a>></a></li>
+		<li class="unactive"><img src="img/news.png"/>&nbsp;&nbsp;<a href="#">个人介绍</a></li>
+		<li class="unactive"><img src="img/works.png"/>&nbsp;&nbsp;<a href="#">设计作品</a></li>
+		<li class="unactive"><img src="img/contact.png"/>&nbsp;&nbsp;<a href="#">工业设计</a></li>
+		<li class="unactive"><img src="img/recruitment.png"/>&nbsp;&nbsp;<a href="#">毕业设计</a></li>
+        <li class="unactive"><img src="img/recruitment.png"/>&nbsp;&nbsp;<a href="#">网页设计</a></li>
+        <li class="unactive"><img src="img/recruitment.png"/>&nbsp;&nbsp;<a href="#">网页设计</a></li>
+		</ul>
+	</div>
+	<div class="state"><p>2019-2019 All Rights Reserved</p><p>by Shaoming.</p></div>
+</div>
+<!--Right Part-->
+<div class="right">
+<!--BANNER-->
+	<div class="banner">
+		<div class="bd">
+			<ul>
+			<li _src="url(images/1.jpg)" style="background:#FF0000 center 0 no-repeat;"><a href="#"></a></li>
+			<li _src="url(images/2.jpg)" style="background:#00FF00 center 0 no-repeat;"><a href="#"></a></li>
+			<li _src="url(images/3.jpg)" style="background:#0000FF center 0 no-repeat;"><a href="#"></a></li>
+			</ul>
+		</div>
+		<div class="hd"><ul></ul></div>
+		<span class="prev"><img src="img/banner_button_1.png"/></span>
+		<span class="next"><img src="img/banner_button_2.png"/></span>
+	</div>
+<!--BUNTTON-->
+<div class="photobutton">
+</div>
+</div>
+</body>
+
+<!--banner script-->
+<script type="text/javascript">
+$(".banner").hover(function(){
+    $(this).find(".prev,.next").stop(true, true).fadeTo("show", 0.5)
+},
+function(){
+    $(this).find(".prev,.next").fadeOut()
+});
+$(".banner").slide({
+    titCell: ".hd ul",
+    mainCell: ".bd ul",
+    effect: "fold",
+    autoPlay: true,
+    autoPage: true,
+    trigger: "click",
+    startFun: function(i) {
+        var curLi = jQuery(".banner .bd li").eq(i);
+        if ( !! curLi.attr("_src")) {
+            curLi.css("background-image", curLi.attr("_src")).removeAttr("_src")
+        }
+    }
+});
+</script>
+</html>
