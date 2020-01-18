@@ -1,0 +1,20 @@
+*{margin: 0;padding: 0;list-style:none;}
+*{-webkit-transition:0.8s all;-moz-transition:0.8s all;-o-transition:0.8s all;-ms-transition:0.8s all}
+html{height: 100%;}
+body{background:#FFFFFF;text-align:left;height:100%}
+.A{width:100vw;height:12.5vh;background:#FFFFFF}
+.B{width:100vw;height:20vh;background:#D80808;text-align:center}
+.B_logo{height:100%;margin:0 auto}
+.C{width:100vw;height:45vh;background:#FFFFFF;text-align:center}
+#nav{width:75vw;margin:10vh auto}
+#nav ul{}
+#nav ul li{margin:3vh 0 0 0;font-size:4.5vh;line-height:8vh;color:#D80808;background:#F0F0F0;border-left:0.5vw #D80808;border-left-style:solid;text-align:left}
+#nav ul li:hover{color:#FFFFFF;background:#FFFFFF;border-left:0.5vw #D80808;border-left-style:solid;box-sizing:border-box;box-shadow: inset 74vw 0 0 0 #D80808;}
+#nav ul li a{color:#D80808}
+#nav ul li:hover a{color:#FFFFFF}
+#nav ul li a:link{text-decoration:none}
+#nav ul li a:visited{text-decoration:none}
+#nav ul li{-webkit-transition:0.8s all;-moz-transition:0.8s all;-o-transition:0.8s all;-ms-transition:0.8s all}
+#nav ul li a{-webkit-transition:0.8s all;-moz-transition:0.8s all;-o-transition:0.8s all;-ms-transition:0.8s all}
+.D{width:100vw;height:12.5vh;background:#FFFFFF;color:#D80808;font-size:1vh;text-align:center}
+.right{width:100vw;height:5vh;position:absolute;bottom:0}
