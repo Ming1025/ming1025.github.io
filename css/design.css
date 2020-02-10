@@ -1,9 +1,0 @@
-.main{width:80vw;height:100vh;float:right;background:url(../img/bg.png) no-repeat;background-size:80vw 100vh}
-.main_bg{width:80vw;height:100vh;z-index:0;position:fixed;opacity:0.5}
-/* Banner */
-.design_background{background-image:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,1));}
-
-.banner {width:80vw;height:40vw;overflow:hidden;position:absolute;margin:0rem;margin-top:0rem}
-.banner div{}
-.banner div div{width:80vw;height:40vw;text-align:center;background:#000000}
-.banner img {height:40vw;margin:0 50%;transform:translateX(-50%);}
