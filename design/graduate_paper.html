@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>1025 Design Studio</title>
+<link rel="stylesheet" type="text/css" href="../css/mainpage.css">
+<link rel="stylesheet" type="text/css" href="../css/design.css">
+<script src="../js/jquery.min.js"></script>
+<script src="../js/HappyImage.min.js"></script>
+</head>
+<body>
+<!--Float-->
+<div class="left">
+<div class="left_top">
+<embed src="../img/1025_1.svg" class="logo"/>
+</div>
+<div class="left_middle">
+	<ul>
+	<li onclick="location.href='../mainpage.html'">主　　页　Mainpage</li>
+	<li onclick="location.href='../info.html'">个人信息　Info</li>
+		<div class="division">设计作品　Works</div>
+	<li class="active" onclick="location.href='../graduate.html'">毕业设计　Graduate</li>
+	<li onclick="location.href='../industrial.html'">工业设计　Industrial</li>
+	<li onclick="location.href='../graphic.html'">平面设计　Graphic</li>
+    <li onclick="location.href='../others.html'">其　　他　Others</li>
+	</ul>
+</div>
+<div class="left_bottom">
+    <div class="about"><a>手机版</a>&nbsp;·&nbsp;<a>电脑版</a>&nbsp;·&nbsp;<a>联系</a>&nbsp;·&nbsp;<a>关于</a></div>
+    <div class="copyright">2020 All Rights Reserved by Ming1025</div>
+ </div>
+</div>
+<!--MAIN-->
+<div class="main_design_single" style="height:60vw">
+	<div class="design_list_right">
+		<div class="design_list_top_right">
+        <h1>毕业论文-生成艺术在现代网页设计中的创新及应用研究</h1>
+        <p style="margin-top:1vw">领域：艺术/平面设计</p>
+        <p>类别：论文</p>
+        <p style="margin-bottom:1vw">时间：2019/05/04</p>
+        <hr>
+        <p style="margin-top:1vw">生成艺术对于社会的应用领域非常广泛，对生成艺术中编程的应用和优化可以促进计算机领域中人工智能、机器学习等主流研究方向的发展；设计领域中我们可以通过使用计算机生成许多解决方案，从而得到最优...</p>
+        </div>
+    </div>
+    <div class="design_list_right_bg"></div>
+<!--mainpage-->
+<div class="design_fixed_bg"></div>
+<div class="design_single_bg">
+	<div class="design_mainpage">
+    	<div class="design_list_top"><a href="../graduate.html" class="btn">《 返回</a></div>
+    	<div class="design_mainpage_bg"><img src="../images/paper/bg.png" alt="1"></div>
+        
+        <div class="design_mainpage_text">
+        	<div class="design_mainpage_text_in">
+        	<h1>毕业论文-生成艺术在现代网页设计中的创新及应用研究</h1>
+            <p style="color:#000;margin-top:1vw;font-weight:bold;margin-bottom:1vw">浏览毕业论文内容的pdf文件：<a href="../images/paper/paper.pdf" target="_blank">生成艺术在现代网页设计中的创新及应用研究.pdf</a></p>
+        	<hr>
+        	<p style="text-align:left;text-indent:6vh">摘要：生成艺术是指艺术家通过在创作过程中不同程度的使用自主系统创作出艺术作品的一种艺术实践，这其中的自主系统通常是指一组自然语言规则，计算机程序，机器或其他程序发明等，这些系统在艺术作品的完成过程中起到十分重要的作用。生成艺术的影响十分广泛，工业设计、建筑、音乐、电影、动画、游戏甚至文学都不同程度的受其影响。而当代新技术的应用也使生成艺术得到了较好的发展。</p><p style="text-align:left;text-indent:6vh">本文的前半部分是对生成艺术的内容和发展现状及其对网页设计之间的关系进行深入探究。本文的后半部分通过使网页设计和生成艺术相结合，以视觉传达设计为主要类型，以网页设计为主要方式，以 HTML、CSS 和 JavaScript 为主要计算机语言，使计算机产出大量的相同风格的艺术作品，从而探究生成艺术在现代平面设计中的创新及应用研究。</p>
+            </div>
+        </div>
+        <div class="design_list_top"><a href="../graduate.html" class="btn">《 返回</a></div>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+var scrolltotop={
+	setting:{
+		startline:100, //起始行
+		scrollto:0, //滚动到指定位置
+		scrollduration:400, //滚动过渡时间
+		fadeduration:[500,100] //淡出淡现消失
+	},
+	controlHTML:'<img src="../icon/top.png" style="width:3vw; height:3vw; border:0;" />', //返回顶部按钮
+	controlattrs:{offsetx:0,offsety:0},//返回按钮固定位置
+	anchorkeyword:"#top",
+	state:{
+		isvisible:false,
+		shouldvisible:false
+	},scrollup:function(){
+		if(!this.cssfixedsupport){
+			this.$control.css({opacity:0});
+		}
+		var dest=isNaN(this.setting.scrollto)?this.setting.scrollto:parseInt(this.setting.scrollto);
+		if(typeof dest=="string"&&jQuery("#"+dest).length==1){
+			dest=jQuery("#"+dest).offset().top;
+		}else{
+			dest=0;
+		}
+		this.$body.animate({scrollTop:dest},this.setting.scrollduration);
+	},keepfixed:function(){
+		var $window=jQuery(window);
+		var controlx=$window.scrollLeft()+$window.width()-this.$control.width()-this.controlattrs.offsetx;
+		var controly=$window.scrollTop()+$window.height()-this.$control.height()-this.controlattrs.offsety;
+		this.$control.css({left:controlx+"px",top:controly+"px"});
+	},togglecontrol:function(){
+		var scrolltop=jQuery(window).scrollTop();
+		if(!this.cssfixedsupport){
+			this.keepfixed();
+		}
+		this.state.shouldvisible=(scrolltop>=this.setting.startline)?true:false;
+		if(this.state.shouldvisible&&!this.state.isvisible){
+			this.$control.stop().animate({opacity:1},this.setting.fadeduration[0]);
+			this.state.isvisible=true;
+		}else{
+			if(this.state.shouldvisible==false&&this.state.isvisible){
+				this.$control.stop().animate({opacity:0},this.setting.fadeduration[1]);
+				this.state.isvisible=false;
+			}
+		}
+	},init:function(){
+		jQuery(document).ready(function($){
+			var mainobj=scrolltotop;
+			var iebrws=document.all;
+			mainobj.cssfixedsupport=!iebrws||iebrws&&document.compatMode=="CSS1Compat"&&window.XMLHttpRequest;
+			mainobj.$body=(window.opera)?(document.compatMode=="CSS1Compat"?$("html"):$("body")):$("html,body");
+			mainobj.$control=$('<div id="topcontrol" >'+mainobj.controlHTML+"</div>").css({position:mainobj.cssfixedsupport?"fixed":"absolute",bottom:mainobj.controlattrs.offsety,right:mainobj.controlattrs.offsetx,opacity:0,cursor:"pointer"}).attr({title:"返回顶部"}).click(function(){mainobj.scrollup();return false;}).appendTo("body");if(document.all&&!window.XMLHttpRequest&&mainobj.$control.text()!=""){mainobj.$control.css({width:mainobj.$control.width()});}mainobj.togglecontrol();
+			$('a[href="'+mainobj.anchorkeyword+'"]').click(function(){mainobj.scrollup();return false;});
+			$(window).bind("scroll resize",function(e){mainobj.togglecontrol();});
+		});
+	}
+};
+scrolltotop.init();
+</script>
+</body>
+</html>
