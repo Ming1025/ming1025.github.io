@@ -16,16 +16,21 @@
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
 			
-			const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-			const geometry2 = new THREE.RingGeometry( 1, 2, 32 );
+			const textureLoader = new THREE.TextureLoader();
+			textureLoader.load('images/deco/1.png',function(texture){
+				var material3 = new THREE.MeshBasicMaterial({map: texture});
+				var mesh2 = new THREE.Mesh(geometry,material3);
+				scene.add(mesh2);
+			})
 			const texture = new THREE.TextureLoader().load( "images/deco/1.png" );
-			const material = new THREE.MeshBasicMaterial( { map: texture,color: 0xff0000 } );
-			const material2 = new THREE.MeshBasicMaterial( { color: 0x00ffff } );
+			const material = new THREE.MeshBasicMaterial( { map: texture,color: 0xffff00 } );
+			const material2 = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 			
 			const cube = new THREE.Mesh( geometry, material);
 			scene.add( cube );
-			const mesh = new THREE.Mesh( geometry2, material);
+			const mesh = new THREE.Mesh( geometry2, material2);
 			scene.add( mesh );
+			
 			
 			camera.position.z = 5;
 			function animate() {
