@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>随机图片生成器</title>
+<link rel="stylesheet" type="text/css" href="css/button_com.css" />
+<style type="text/css">
+@charset "utf-8";
+/* CSS Document */
+.background{background-color:#000;width:100%}
+.left{background:#000000;height:100%;width:25%;float:left;margin: 0 0 0 0;}
+.left-bottom{position:fixed;left:20px;bottom:20px;}
+.positive{position:relative;left:20px;top:20px;}
+.center{background:#000000;width:50%;height:100%;float:left;text-align:center;}
+canvas{display: block;width:80%;height:80%;margin:0 auto;position:relative;top:30px;}
+.center_bottom{position:fixed;bottom:10px; width:50%;color:#999999;}
+.right{background:#000000;	width:25%;height:100%;float:left;text-align:right;}
+.top{position:fixed;height:0;top:0px}
+.bottom{position:fixed; right:10px; bottom:10px; width:25%;color:#999999;}
+</style>
+ <script type="text/javascript">
+function getheight()
+  {
+var w = document.documentElement.clientWidth || document.body.clientWidth;
+var h = document.documentElement.clientHeight || document.body.clientHeight;
+  }
+</script>
+<script src="js/effect.js"></script>
+<script src="js/draw.js"></script>
+<script> 
+function draw(){ 
+document.onkeydown=function(event){
+var e = event || window.event || arguments.callee.caller.arguments[0];
+if(e && e.keyCode==32){random_draw();choose_effect()}
+if(e && e.keyCode==65){draw_a();choose_effect()}
+if(e && e.keyCode==66){draw_b();choose_effect()}
+if(e && e.keyCode==67){draw_c();choose_effect()}
+if(e && e.keyCode==68){draw_d();choose_effect()}
+if(e && e.keyCode==69){draw_e();choose_effect()}
+if(e && e.keyCode==70){draw_f();choose_effect()}
+if(e && e.keyCode==71){draw_g();choose_effect()}
+if(e && e.keyCode==72){draw_h();choose_effect()}
+if(e && e.keyCode==73){draw_i();choose_effect()}
+if(e && e.keyCode==74){draw_j();choose_effect()}
+if(e && e.keyCode==75){draw_k();choose_effect()}
+if(e && e.keyCode==76){draw_l();choose_effect()}
+if(e && e.keyCode==77){draw_m();choose_effect()}
+if(e && e.keyCode==78){draw_n();choose_effect()}
+if(e && e.keyCode==79){draw_o();choose_effect()}
+if(e && e.keyCode==80){draw_p();choose_effect()}
+if(e && e.keyCode==81){draw_q();choose_effect()}
+if(e && e.keyCode==82){draw_r();choose_effect()}
+if(e && e.keyCode==83){draw_s();choose_effect()}
+if(e && e.keyCode==84){draw_t();choose_effect()}
+if(e && e.keyCode==85){draw_u();choose_effect()}
+if(e && e.keyCode==86){draw_v();choose_effect()}
+if(e && e.keyCode==87){draw_w();choose_effect()}
+if(e && e.keyCode==88){draw_x();choose_effect()}
+if(e && e.keyCode==89){draw_y();choose_effect()}
+if(e && e.keyCode==90){draw_z();choose_effect()}
+}; 
+random_draw();choose_effect();
+} 
+window.onload = function() {
+draw();
+var saveButton = document.getElementById("saveImageBtn"); 
+bindButtonEvent(saveButton, "click", saveImageInfo); 
+var dlButton = document.getElementById("downloadImageBtn"); 
+bindButtonEvent(dlButton, "click", saveAsLocalImage); 
+}; 
+function bindButtonEvent(element, type, handler) { 
+if(element.addEventListener) {element.addEventListener(type, handler, false);}
+else {element.attachEvent('on'+type, handler);} 
+} 
+function saveImageInfo (){ 
+var mycanvas = document.getElementById("myCanvas"); 
+var image = mycanvas.toDataURL("image/png"); 
+var w=window.open('about:blank','image from canvas'); 
+w.document.write("<img src='"+image+"' alt='from canvas'/>"); 
+} 
+function saveAsLocalImage () {
+var myCanvas = document.getElementById("myCanvas");
+var image = myCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+window.location.href=image;
+} 
+</script>
+</head>
+<body height="h" width="w" style="background-color:#000000;margin:0;padding:0" >
+	<div class="background">
+		<div class="left">
+        	<a id="btn" class="info info-lg info-success">More Info</a>
+            <div class="left-bottom">
+            <button id="saveImageBtn" class="setting setting-lg setting-success">下载图片</button>
+            </div>
+            
+        <div class="positive">
+        </div>>
+<div id="sampledata" class="bringins-content">
+<h2>随机图片生成器</h2>
+<p>通过按键盘A-Z键可以控制相同风格图片的不同样式，空格键或鼠标点击图片可以随机生成不同风格的图片。
+<br><br>
+图片分辨率：2560*2560
+<br><br>
+图片格式：png
+<br><br>
+图片DPI：72
+<br><br>
+2019 Graduated Design by ShaoMing
+<br><br>
+E-mail:1291029092@qq.com
+</p>
+</div>
+		</div>
+        
+        <div class="center">
+        <div class="top"></div>
+			<canvas id="myCanvas" width="2560" height="2560" style="border:20px solid #FFFFFF;" onclick="random_draw();choose_effect()"></canvas>
+        <div class="center_bottom">点击图片随机生成下一张</div>
+        </div>
+        
+		<div class="right">
+        <button class="setting setting-lg setting-success" onclick="window.location.href='index_sp.html'">手机版</button>
+        <button class="setting setting-lg setting-success" onclick="window.location.href='index_pc.html'">电脑版</button>
+        	<div class="bottom">2019 Graduated Design by ShaoMing</div>
+		</div>
+	</div>
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/bringins.js"></script>
+<script>
+$(document).ready(function() {
+	$('#btn').click(function(){
+		$('#sampledata').bringins({
+			"position":"left",
+			"color":"#666666",
+			"width":"25%",
+			"closeButton":"white"
+		});
+	});
+});
+</script>
+</body>
+</html>
