@@ -22,7 +22,7 @@
 			const textureLoader = new THREE.TextureLoader();
 			textureLoader.load('images/deco/2.jpg',function(texture){
 				var material3 = new THREE.MeshBasicMaterial({map: texture});
-				var mesh2 = new THREE.Mesh(geometry,material3);
+				var mesh2 = new THREE.Mesh(geometry2,material3);
 				scene.add(mesh2);
 			})
 			const texture = new THREE.TextureLoader().load( "images/deco/2.jpg" );
