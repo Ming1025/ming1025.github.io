@@ -452,8 +452,8 @@
 			var bgColor,centerBgColor,ring1BgColor,ring2BgColor;
 			var line1Color,line2Color,line3Color,line4Color,line5Color,line6Color;
 			function randomAll(){
-				randomStyle();
 				randomColors();
+				randomElements();
 			}
 			function randomElements(){
 				elements.中心元素造型=Math.floor((Math.random()*20)+1);
@@ -822,7 +822,12 @@
 			function animate() {
 				if(animations.幻灯片模式==true){sliderStart();}
 				else{sliderStop();}
-					if(animations.动画效果=='无动效'){animate0();}
+					if(animations.动画效果=='无动效'){animate0();
+											  centerGroup.rotation.z =0;
+											   ringGroup1.rotation.z =0;
+											   ringGroup2.rotation.z =0;
+											   ringGroup3.rotation.z =0;
+											  }
 					if(animations.动画效果=='自转+波动'){
 						centerGroup.rotation.z -= Math.PI*animations.自转速度*0.001;
 						ringGroup1.rotation.z += Math.PI*animations.自转速度*0.001;
