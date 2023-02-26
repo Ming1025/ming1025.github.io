@@ -13,36 +13,46 @@
 			body {padding: 0; margin:0;}
 			#gui1_container{
 				position:absolute;left:20px;top:20px;
-				padding:20px 50px 90px 50px;
+				padding:60px 50px 40px 50px;
 				width:250px;
 				background-color:rgb(255,255,255,0.6);
-				border-radius: 20px;
+				border-radius: 5px;
 				text-shadow:none;
 			}
 			#gui2_container{
 				position:absolute;right:20px;top:20px;
-				padding:20px 50px 90px 50px;
+				padding:60px 50px 40px 50px;
 				width:250px;
 				background-color:rgb(255,255,255,0.6);
-				border-radius: 20px;
+				border-radius: 5px;
 				text-shadow:none;
 			}
 			.dg .main {
 				position:absolute;left:20px;top:20px;
-				padding:20px 50px 90px 50px;
+				padding:60px 50px 90px 50px;
 				background-color:rgb(255,255,255,0.6);
 				border-radius: 20px;
 				text-shadow:none;
 			}
 			.dg.main .close-button {
+				-moz-transition: background 0.2s ease-in,color 0.2s ease-out;
+				-webkit-transition: background 0.2s ease-in,color 0.2s ease-out;
+				-o-transition: background 0.2s ease-in,color 0.2s ease-out;
+				transition: background 0.2s ease-in,color 0.2s ease-out;
 				border:0;padding:0;margin:20px 0 0 0;
-				border-radius: 5px;
+				border-radius: 2px;
 				line-height: 20px;
 				height: 20px;
 				cursor: pointer;
-				text-align: center;
-				color:#FFF;background-color:#BB1111;
+				color:#FFF;background-color:rgb(0,0,0,0.4);
 				text-shadow:none;
+				text-align:center;
+				
+				display:block;
+				position:absolute;
+				top:20px;
+				float:left;
+				clear:none;
 			}
 			.dg.main .close-button:hover {color:#333;background-color: #FFF;}
 			
@@ -52,7 +62,7 @@
 				width:100%;
 			}
 			.dg ul li {
-				border:0;padding:0;margin:0 0 5px 0;
+				border:0;padding:0;margin:0;
 				background-color:rgb(255,255,255,0);
 			}
 			.dg li.title {
@@ -66,20 +76,22 @@
 				cursor: pointer;
 			}
 			
-			.dg .cr {
-				-moz-transition: background 0.5s ease-in,color 0.3s ease-out;
-				-webkit-transition: background 0.5s ease-in,color 0.3s ease-out;
-				-o-transition: background 0.5s ease-in,color 0.3s ease-out;
-				transition: background 0.5s ease-in,color 0.3s ease-out;
-				border-left: 0;}
-			
+			.dg .cr {}
 			.dg .cr.string {
 				border:0;padding:0;margin:0 0 2px 0;
 				background-color:rgb(0,0,0,0);
 				text-shadow:none;
 				color:#333;
+				height:40px;
 			}
-			.dg .cr.string input[type=text] {border:1px;padding:0;margin:0;}
+			.dg .cr.string input[type=text] {
+				border:0;padding:0;margin:0;
+				color:#444444;
+				background-color:#FFF;
+				height:40px;
+				width:100%;
+				overflow: auto;
+			}
 			
 			.dg .cr.number {
 				border:0;padding:0;margin:0 0 2px 0;
@@ -88,11 +100,18 @@
 				color:#333;
 			}
 			.dg .cr .slider {
-				background-color:rgb(0,0,0,0.2);cursor: ew-resize;}
-			.dg .cr .slider:hover {background-color:rgb(0,0,0,0.2);cursor: ew-resize;}
-			.dg .c .slider-fg {background: #BB1111}
-			.dg .c .slider:hover .slider-fg {background: #BB1111}
-			.dg .cr.number input[type=text] {border-left: 0;width:20%;background-color: rgb(0,0,0,0.1);color:#BB1111;text-align:right;}
+				border:0;
+				padding:0;
+				margin:4px 0 0 0;
+				background-color:rgb(255,255,255,0.2);
+				cursor: ew-resize;
+				width:70%;
+				
+			}
+			.dg .cr .slider:hover {background-color:rgb(255,255,255,0.2);cursor: ew-resize;}
+			.dg .c .slider-fg {background: #555}
+			.dg .c .slider:hover .slider-fg {background: #444}
+			.dg .cr.number input[type=text] {border-left: 0;width:20%;background-color: rgb(255,255,255,0.2);color:#444;text-align:right;}
 			
 			
 			.dg .cr.boolean {
@@ -110,26 +129,30 @@
 				-webkit-transition: background 0.2s ease-in,color 0.2s ease-out;
 				-o-transition: background 0.2s ease-in,color 0.2s ease-out;
 				transition: background 0.2s ease-in,color 0.2s ease-out;
+				width:46%;
+				border:0;padding:0;margin:10px 1% 10px 1%;
+				background-color:#444;
+				height:40px;
 				display:block;
-				border:0;padding:0;margin:10px 0 10px 0;
-				background-color: #BB1111;
-				height:50px;
 				text-align:center;
-				position:inherit;
+				position:relative;
+				float:left;
 				clear:none;
-				border-radius: 20px;
-				
+				color:#FFF;
+				border-radius: 5px;
+				border:1px solid #444;
 			}
-			.dg .cr.function:hover {color:#333;background-color:#FFF;}
+			.dg .cr.function:hover {color:#444;background-color:rgb(255,255,255,0);
+			border:1px solid #444;}
 			.dg .cr.function .property-name {
 				border:0;padding:0;
-				height:50px;
+				height:40px;
 				text-align: center;
-				font-size:18px;
-				line-height: 50px;
+				font-size:14px;letter-spacing:2px;font-weight:600;
+				line-height:40px;
 				text-shadow:none;
 			}
-			.dg .cr.function.property-nam:hover {color:#333;background-color:#FFF;}
+			.dg .cr.function.property-name:hover {color:#444;background-color:rgb(255,255,255,0);}
 			
 			#timer {
 				-moz-transition: background 0.2s ease-in,color 0.2s ease-out;
@@ -141,7 +164,7 @@
 				left:0;
 				height:3px;
 				width:10%;
-				background: #BB1111;
+				background: #444444;
 				z-index:3;
 			}
 			#about {
@@ -181,7 +204,7 @@
 			var i = 0;
 			function sliderStart(){
 				if (i < 99.9) {i=i+0.2;timer.style.width = i + "%";}
-				else {i=0;randomElements();randomColors();}
+				else {i=0;randomElementTheme();randomColorTheme();}
 			}
 			function sliderStop(){i=0;}
 			//-------------------------------------------贴图库-------------------------------------------//
@@ -195,7 +218,12 @@
 				new THREE.TextureLoader().load("images/c/1/13.png"),new THREE.TextureLoader().load("images/c/1/14.png"),
 				new THREE.TextureLoader().load("images/c/1/15.png"),new THREE.TextureLoader().load("images/c/1/16.png"),
 				new THREE.TextureLoader().load("images/c/1/17.png"),new THREE.TextureLoader().load("images/c/1/18.png"),
-				new THREE.TextureLoader().load("images/c/1/19.png"),new THREE.TextureLoader().load("images/c/1/20.png")];
+				new THREE.TextureLoader().load("images/c/1/19.png"),new THREE.TextureLoader().load("images/c/1/20.png"),
+				new THREE.TextureLoader().load("images/c/1/21.png"),new THREE.TextureLoader().load("images/c/1/22.png"),
+				new THREE.TextureLoader().load("images/c/1/23.png"),new THREE.TextureLoader().load("images/c/1/24.png"),
+				new THREE.TextureLoader().load("images/c/1/25.png"),new THREE.TextureLoader().load("images/c/1/26.png"),
+				new THREE.TextureLoader().load("images/c/1/27.png"),new THREE.TextureLoader().load("images/c/1/28.png"),
+				new THREE.TextureLoader().load("images/c/1/29.png"),new THREE.TextureLoader().load("images/c/1/30.png")];
 			var c2 = [
 				new THREE.TextureLoader().load("images/c/2/1.png"),new THREE.TextureLoader().load("images/c/2/2.png"),
 				new THREE.TextureLoader().load("images/c/2/3.png"),new THREE.TextureLoader().load("images/c/2/4.png"),
@@ -206,7 +234,12 @@
 				new THREE.TextureLoader().load("images/c/2/13.png"),new THREE.TextureLoader().load("images/c/2/14.png"),
 				new THREE.TextureLoader().load("images/c/2/15.png"),new THREE.TextureLoader().load("images/c/2/16.png"),
 				new THREE.TextureLoader().load("images/c/2/17.png"),new THREE.TextureLoader().load("images/c/2/18.png"),
-				new THREE.TextureLoader().load("images/c/2/19.png"),new THREE.TextureLoader().load("images/c/2/20.png")];
+				new THREE.TextureLoader().load("images/c/2/19.png"),new THREE.TextureLoader().load("images/c/2/20.png"),
+				new THREE.TextureLoader().load("images/c/2/21.png"),new THREE.TextureLoader().load("images/c/2/22.png"),
+				new THREE.TextureLoader().load("images/c/2/23.png"),new THREE.TextureLoader().load("images/c/2/24.png"),
+				new THREE.TextureLoader().load("images/c/2/25.png"),new THREE.TextureLoader().load("images/c/2/26.png"),
+				new THREE.TextureLoader().load("images/c/2/27.png"),new THREE.TextureLoader().load("images/c/2/28.png"),
+				new THREE.TextureLoader().load("images/c/2/29.png"),new THREE.TextureLoader().load("images/c/2/30.png")];
 			var c3 = [
 				new THREE.TextureLoader().load("images/c/3/1.png"),new THREE.TextureLoader().load("images/c/3/2.png"),
 				new THREE.TextureLoader().load("images/c/3/3.png"),new THREE.TextureLoader().load("images/c/3/4.png"),
@@ -217,7 +250,12 @@
 				new THREE.TextureLoader().load("images/c/3/13.png"),new THREE.TextureLoader().load("images/c/3/14.png"),
 				new THREE.TextureLoader().load("images/c/3/15.png"),new THREE.TextureLoader().load("images/c/3/16.png"),
 				new THREE.TextureLoader().load("images/c/3/17.png"),new THREE.TextureLoader().load("images/c/3/18.png"),
-				new THREE.TextureLoader().load("images/c/3/19.png"),new THREE.TextureLoader().load("images/c/3/20.png")];
+				new THREE.TextureLoader().load("images/c/3/19.png"),new THREE.TextureLoader().load("images/c/3/20.png"),
+				new THREE.TextureLoader().load("images/c/3/21.png"),new THREE.TextureLoader().load("images/c/3/22.png"),
+				new THREE.TextureLoader().load("images/c/3/23.png"),new THREE.TextureLoader().load("images/c/3/24.png"),
+				new THREE.TextureLoader().load("images/c/3/25.png"),new THREE.TextureLoader().load("images/c/3/26.png"),
+				new THREE.TextureLoader().load("images/c/3/27.png"),new THREE.TextureLoader().load("images/c/3/28.png"),
+				new THREE.TextureLoader().load("images/c/3/29.png"),new THREE.TextureLoader().load("images/c/3/30.png")];
 			var c4 = [
 				new THREE.TextureLoader().load("images/c/4/1.png"),new THREE.TextureLoader().load("images/c/4/2.png"),
 				new THREE.TextureLoader().load("images/c/4/3.png"),new THREE.TextureLoader().load("images/c/4/4.png"),
@@ -228,7 +266,12 @@
 				new THREE.TextureLoader().load("images/c/4/13.png"),new THREE.TextureLoader().load("images/c/4/14.png"),
 				new THREE.TextureLoader().load("images/c/4/15.png"),new THREE.TextureLoader().load("images/c/4/16.png"),
 				new THREE.TextureLoader().load("images/c/4/17.png"),new THREE.TextureLoader().load("images/c/4/18.png"),
-				new THREE.TextureLoader().load("images/c/4/19.png"),new THREE.TextureLoader().load("images/c/4/20.png")];
+				new THREE.TextureLoader().load("images/c/4/19.png"),new THREE.TextureLoader().load("images/c/4/20.png"),
+				new THREE.TextureLoader().load("images/c/4/21.png"),new THREE.TextureLoader().load("images/c/4/22.png"),
+				new THREE.TextureLoader().load("images/c/4/23.png"),new THREE.TextureLoader().load("images/c/4/24.png"),
+				new THREE.TextureLoader().load("images/c/4/25.png"),new THREE.TextureLoader().load("images/c/4/26.png"),
+				new THREE.TextureLoader().load("images/c/4/27.png"),new THREE.TextureLoader().load("images/c/4/28.png"),
+				new THREE.TextureLoader().load("images/c/4/29.png"),new THREE.TextureLoader().load("images/c/4/30.png")];
 			var c5 = [
 				new THREE.TextureLoader().load("images/c/5/1.png"),new THREE.TextureLoader().load("images/c/5/2.png"),
 				new THREE.TextureLoader().load("images/c/5/3.png"),new THREE.TextureLoader().load("images/c/5/4.png"),
@@ -239,7 +282,12 @@
 				new THREE.TextureLoader().load("images/c/5/13.png"),new THREE.TextureLoader().load("images/c/5/14.png"),
 				new THREE.TextureLoader().load("images/c/5/15.png"),new THREE.TextureLoader().load("images/c/5/16.png"),
 				new THREE.TextureLoader().load("images/c/5/17.png"),new THREE.TextureLoader().load("images/c/5/18.png"),
-				new THREE.TextureLoader().load("images/c/5/19.png"),new THREE.TextureLoader().load("images/c/5/20.png")];
+				new THREE.TextureLoader().load("images/c/5/19.png"),new THREE.TextureLoader().load("images/c/5/20.png"),
+				new THREE.TextureLoader().load("images/c/5/21.png"),new THREE.TextureLoader().load("images/c/5/22.png"),
+				new THREE.TextureLoader().load("images/c/5/23.png"),new THREE.TextureLoader().load("images/c/5/24.png"),
+				new THREE.TextureLoader().load("images/c/5/25.png"),new THREE.TextureLoader().load("images/c/5/26.png"),
+				new THREE.TextureLoader().load("images/c/5/27.png"),new THREE.TextureLoader().load("images/c/5/28.png"),
+				new THREE.TextureLoader().load("images/c/5/29.png"),new THREE.TextureLoader().load("images/c/5/30.png")];
 			var c6 = [
 				new THREE.TextureLoader().load("images/c/6/1.png"),new THREE.TextureLoader().load("images/c/6/2.png"),
 				new THREE.TextureLoader().load("images/c/6/3.png"),new THREE.TextureLoader().load("images/c/6/4.png"),
@@ -250,7 +298,12 @@
 				new THREE.TextureLoader().load("images/c/6/13.png"),new THREE.TextureLoader().load("images/c/6/14.png"),
 				new THREE.TextureLoader().load("images/c/6/15.png"),new THREE.TextureLoader().load("images/c/6/16.png"),
 				new THREE.TextureLoader().load("images/c/6/17.png"),new THREE.TextureLoader().load("images/c/6/18.png"),
-				new THREE.TextureLoader().load("images/c/6/19.png"),new THREE.TextureLoader().load("images/c/6/20.png")];
+				new THREE.TextureLoader().load("images/c/6/19.png"),new THREE.TextureLoader().load("images/c/6/20.png"),
+				new THREE.TextureLoader().load("images/c/6/21.png"),new THREE.TextureLoader().load("images/c/6/22.png"),
+				new THREE.TextureLoader().load("images/c/6/23.png"),new THREE.TextureLoader().load("images/c/6/24.png"),
+				new THREE.TextureLoader().load("images/c/6/25.png"),new THREE.TextureLoader().load("images/c/6/26.png"),
+				new THREE.TextureLoader().load("images/c/6/27.png"),new THREE.TextureLoader().load("images/c/6/28.png"),
+				new THREE.TextureLoader().load("images/c/6/29.png"),new THREE.TextureLoader().load("images/c/6/30.png")];
 			var c7 = [
 				new THREE.TextureLoader().load("images/c/7/1.png"),new THREE.TextureLoader().load("images/c/7/2.png"),
 				new THREE.TextureLoader().load("images/c/7/3.png"),new THREE.TextureLoader().load("images/c/7/4.png"),
@@ -261,7 +314,12 @@
 				new THREE.TextureLoader().load("images/c/7/13.png"),new THREE.TextureLoader().load("images/c/7/14.png"),
 				new THREE.TextureLoader().load("images/c/7/15.png"),new THREE.TextureLoader().load("images/c/7/16.png"),
 				new THREE.TextureLoader().load("images/c/7/17.png"),new THREE.TextureLoader().load("images/c/7/18.png"),
-				new THREE.TextureLoader().load("images/c/7/19.png"),new THREE.TextureLoader().load("images/c/7/20.png")];
+				new THREE.TextureLoader().load("images/c/7/19.png"),new THREE.TextureLoader().load("images/c/7/20.png"),
+				new THREE.TextureLoader().load("images/c/7/21.png"),new THREE.TextureLoader().load("images/c/7/22.png"),
+				new THREE.TextureLoader().load("images/c/7/23.png"),new THREE.TextureLoader().load("images/c/7/24.png"),
+				new THREE.TextureLoader().load("images/c/7/25.png"),new THREE.TextureLoader().load("images/c/7/26.png"),
+				new THREE.TextureLoader().load("images/c/7/27.png"),new THREE.TextureLoader().load("images/c/7/28.png"),
+				new THREE.TextureLoader().load("images/c/7/29.png"),new THREE.TextureLoader().load("images/c/7/30.png")];
 			var c8 = [
 				new THREE.TextureLoader().load("images/c/8/1.png"),new THREE.TextureLoader().load("images/c/8/2.png"),
 				new THREE.TextureLoader().load("images/c/8/3.png"),new THREE.TextureLoader().load("images/c/8/4.png"),
@@ -272,7 +330,12 @@
 				new THREE.TextureLoader().load("images/c/8/13.png"),new THREE.TextureLoader().load("images/c/8/14.png"),
 				new THREE.TextureLoader().load("images/c/8/15.png"),new THREE.TextureLoader().load("images/c/8/16.png"),
 				new THREE.TextureLoader().load("images/c/8/17.png"),new THREE.TextureLoader().load("images/c/8/18.png"),
-				new THREE.TextureLoader().load("images/c/8/19.png"),new THREE.TextureLoader().load("images/c/8/20.png")];
+				new THREE.TextureLoader().load("images/c/8/19.png"),new THREE.TextureLoader().load("images/c/8/20.png"),
+				new THREE.TextureLoader().load("images/c/8/21.png"),new THREE.TextureLoader().load("images/c/8/22.png"),
+				new THREE.TextureLoader().load("images/c/8/23.png"),new THREE.TextureLoader().load("images/c/8/24.png"),
+				new THREE.TextureLoader().load("images/c/8/25.png"),new THREE.TextureLoader().load("images/c/8/26.png"),
+				new THREE.TextureLoader().load("images/c/8/27.png"),new THREE.TextureLoader().load("images/c/8/28.png"),
+				new THREE.TextureLoader().load("images/c/8/29.png"),new THREE.TextureLoader().load("images/c/8/30.png")];
 			
 			var d = [
 				//d1吉祥如意_20
@@ -362,6 +425,7 @@
 				边缘元素二造型:1,
 				边缘元素三造型:1,
 				构图形状: '圆形',
+				说明: '中心元素跟随主题改变，前20个为原生纹样及传统纹样，后20个为现代纹样',
 			}
 			var sizes = {
 				中心图案尺寸: 300,
@@ -401,13 +465,16 @@
 			gui1_container.appendChild(gui.domElement);
 			var patternSet = gui.addFolder('纹样元素设置');patternSet.open();
 			patternSet.add(elements, '中心元素主题',themeOption).listen().onChange(updateElements);
-			patternSet.add(elements,'中心元素造型',1,20,1).listen().onChange(updateElements);
+			patternSet.add(elements,'说明');
+			patternSet.add(elements,'中心元素造型',1,30,1).listen().onChange(updateElements);
 			patternSet.add(elements,'边缘元素一造型',1,100,1).listen().onChange(updateElements);
 			patternSet.add(elements,'边缘元素二造型',1,100,1).listen().onChange(updateElements);
 			patternSet.add(elements,'边缘元素三造型',1,100,1).listen().onChange(updateElements);
 			patternSet.add(elements, '构图形状',compositionOption).onChange(updateSizes);
 			elements['随机造型'] = randomElements;
 			patternSet.add(elements, '随机造型');
+			elements['随机主题造型'] = randomElementTheme;
+			patternSet.add(elements, '随机主题造型');
 			
 			var colorSet = gui.addFolder('颜色设置');colorSet.open();
 			colorSet.add(colors, '配色主题',colorTheme).listen().onChange(updateElements);
@@ -416,56 +483,95 @@
 			colorSet.add(colors, '背景透明度',0,1,0.1).onChange(updateElements);
 			colors['随机配色'] =randomColors;
 			colorSet.add(colors,'随机配色');
-			colors['随机元素及配色'] =randomAll;
-			colorSet.add(colors,'随机元素及配色');
+			colors['随机主题配色'] =randomColorTheme;
+			colorSet.add(colors,'随机主题配色');
 			//-------------------------------------------GUI2-------------------------------------------//
 			var gui2 =new dat.GUI({autoPlace:false});
 			gui2.domElement.id = 'gui2';
 			gui2_container.appendChild(gui2.domElement);
 			var sizeSet = gui2.addFolder('尺寸设置');sizeSet.open();
-			sizeSet.add(sizes,'中心图案尺寸',50,300,10).onChange(updateSizes);
-			sizeSet.add(sizes,'边缘元素1尺寸',50,100,10).onChange(updateSizes);
-			sizeSet.add(sizes,'边缘元素2尺寸',50,100,10).onChange(updateSizes);
-			sizeSet.add(sizes,'边缘元素3尺寸',50,100,10).onChange(updateSizes);
+			sizeSet.add(sizes,'中心图案尺寸',50,300,10).listen().onChange(updateSizes);
+			sizeSet.add(sizes,'边缘元素1尺寸',50,100,10).listen().onChange(updateSizes);
+			sizeSet.add(sizes,'边缘元素2尺寸',50,100,10).listen().onChange(updateSizes);
+			sizeSet.add(sizes,'边缘元素3尺寸',50,100,10).listen().onChange(updateSizes);
 			sizeSet.add(sizes,'边缘元素1数量',4,24,1).listen().onChange(updateElements);
 			sizeSet.add(sizes,'边缘元素2数量',4,24,1).listen().onChange(updateElements);
 			sizeSet.add(sizes,'边缘元素3数量',4,24,1).listen().onChange(updateElements);
-			sizeSet.add(sizes,'图案间隔线距离',10,50,1).onChange(updateSizes);
-			sizeSet.add(sizes,'间隔线间距离',0,50,1).onChange(updateSizes);
-			sizeSet.add(sizes,'间隔线宽度',1,10,1).onChange(updateSizes);
+			sizeSet.add(sizes,'图案间隔线距离',10,50,1).listen().onChange(updateSizes);
+			sizeSet.add(sizes,'间隔线间距离',0,50,1).listen().onChange(updateSizes);
+			sizeSet.add(sizes,'间隔线宽度',1,10,1).listen().onChange(updateSizes);
+			sizes['默认尺寸'] = defaultSize;
+			sizeSet.add(sizes, '默认尺寸');
+			sizes['随机尺寸'] = randomSize;
+			sizeSet.add(sizes, '随机尺寸');
+			
 			var animationSet = gui2.addFolder('动效设置');animationSet.open();
 			animationSet.add(animations, '幻灯片模式');
 			animationSet.add(animations, '动画效果',animationOption).onChange(animate0);
 			//animationSet.add(animations, '动画速度',0,5,0.1);
 			//animationSet.add(animations, '自转速度',0,1,0.5);
 			
-			var cameraSet = gui2.addFolder('视角设置');cameraSet.open();
-			cameraAngle['正视'] = cameraFront;
-			cameraSet.add(cameraAngle, '正视');
-			cameraAngle['倾斜'] = cameraPerspective;
-			cameraSet.add(cameraAngle, '倾斜');
+			var cameraSet = gui2.addFolder('视角及相机设置');cameraSet.open();
+			cameraAngle['正视视角'] = cameraFront;
+			cameraSet.add(cameraAngle, '正视视角');
+			cameraAngle['倾斜视角'] = cameraPerspective;
+			cameraSet.add(cameraAngle, '倾斜视角');
 			cameraAngle['保存截图'] = shot;
-			gui2.add(cameraAngle, '保存截图');
+			cameraSet.add(cameraAngle, '保存截图');
 			//截图---------------------------------------------------------
 			//-------------------------------------------绘制程序-------------------------------------------//
 			var centerColor,ring1Color,ring2Color,ring3Color;
 			var bgColor,centerBgColor,ring1BgColor,ring2BgColor;
 			var line1Color,line2Color,line3Color,line4Color,line5Color,line6Color;
-			function randomAll(){
-				randomColors();
+			function randomElementTheme(){
+				elements.中心元素主题 = themeOption[Math.floor((Math.random()*8))];
 				randomElements();
 			}
 			function randomElements(){
-				elements.中心元素造型=Math.floor((Math.random()*20)+1);
+				elements.中心元素造型=Math.floor((Math.random()*30)+1);
 				elements.边缘元素一造型=Math.floor((Math.random()*100)+1);
 				elements.边缘元素二造型=Math.floor((Math.random()*100)+1);
 				elements.边缘元素三造型=Math.floor((Math.random()*100)+1);
 				updateElements();
 			}
+			
+			function randomColorTheme(){
+				colors.配色主题 = colorTheme[Math.floor((Math.random()*3))];
+				randomColors();
+			}
 			function randomColors(){
 				colors.配色=Math.floor((Math.random()*29)+1);
 				updateElements();
 			}
+			function defaultSize(){
+				sizes.中心图案尺寸 = 300;
+				sizes.边缘元素1尺寸 = 80;
+				sizes.边缘元素2尺寸 = 80;
+				sizes.边缘元素3尺寸 = 80;
+				sizes.边缘元素1数量 = 15;
+				sizes.边缘元素2数量 = 18;
+				sizes.边缘元素3数量 = 24;
+				sizes.图案间隔线距离 = 10;
+				sizes.间隔线间距离 = 20;
+				sizes.间隔线宽度 = 4;
+				updateElements();
+				updateSizes();
+			}
+			function randomSize(){
+				sizes.中心图案尺寸 = Math.floor((Math.random()*25)*10+50);
+				sizes.边缘元素1尺寸 = Math.floor((Math.random()*5)*10+50);
+				sizes.边缘元素2尺寸 = Math.floor((Math.random()*5)*10+50);
+				sizes.边缘元素3尺寸 = Math.floor((Math.random()*5)*10+50);
+				sizes.边缘元素1数量 = Math.floor((Math.random()*20)+4);
+				sizes.边缘元素2数量 = Math.floor((Math.random()*20)+4);
+				sizes.边缘元素3数量 = Math.floor((Math.random()*20)+4);
+				sizes.图案间隔线距离 = Math.floor((Math.random()*40)+10);
+				sizes.间隔线间距离 = Math.floor((Math.random()*50));
+				sizes.间隔线宽度 = Math.floor((Math.random()*9)+1);
+				updateElements();
+				updateSizes();
+			}
+			
 			function updateElements(){
 				var newColorSet = [];
 				if(colors.配色主题 == '原生配色'){
