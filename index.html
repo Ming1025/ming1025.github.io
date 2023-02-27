@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>黔东南铜鼓纹生成系统</title>
+		<link rel="icon" href="images/icon.ico" type="image/ico">
 		<script language="javascript" type="text/javascript" src="js/p5.min.js"></script>
 		<script src="js/dat.gui.min.js"></script>
 		<script src="js/three.js"></script>
@@ -47,16 +48,16 @@
 				color:#FFF;background-color:rgb(0,0,0,0.4);
 				text-shadow:none;
 				text-align:center;
-				
 				display:block;
 				position:absolute;
 				top:20px;
 				float:left;
 				clear:none;
 			}
-			.dg.main .close-button:hover {color:#333;background-color: #FFF;}
-			
-			
+			.dg.main .close-button:hover {
+				color:#333;
+				background-color: #FFF;
+			}
 			.dg ul {
 				border:0;padding:0;margin:0 0 0 0;
 				width:100%;
@@ -75,80 +76,105 @@
 				list-style:circle;
 				cursor: pointer;
 			}
-			
 			.dg .cr {}
 			.dg .cr.string {
-				border:0;padding:0;margin:0 0 2px 0;
-				background-color:rgb(0,0,0,0);
+				border:0;padding:0;margin:0;
 				text-shadow:none;
 				color:#333;
-				height:40px;
+				background-color:rgb(0,0,0,0);
 			}
 			.dg .cr.string input[type=text] {
 				border:0;padding:0;margin:0;
-				color:#444444;
-				background-color:#FFF;
-				height:40px;
+				height:30px;
 				width:100%;
 				overflow: auto;
+				color:#333;
+				background-color:rgb(255,255,255,1);
 			}
-			
 			.dg .cr.number {
-				border:0;padding:0;margin:0 0 2px 0;
-				background-color:rgb(0,0,0,0);
+				border:0;
+				padding:0;
+				margin:0 0 2px 0;
 				text-shadow:none;
 				color:#333;
+				background-color:rgb(0,0,0,0);
 			}
 			.dg .cr .slider {
 				border:0;
-				padding:0;
+				padding:1px;
 				margin:4px 0 0 0;
-				background-color:rgb(255,255,255,0.2);
 				cursor: ew-resize;
-				width:70%;
-				
+				border-radius: 3px;
+				border:1px solid rgb(0,0,0,0.3);
+				background-color:rgb(255,255,255,0);
 			}
-			.dg .cr .slider:hover {background-color:rgb(255,255,255,0.2);cursor: ew-resize;}
-			.dg .c .slider-fg {background: #555}
-			.dg .c .slider:hover .slider-fg {background: #444}
-			.dg .cr.number input[type=text] {border-left: 0;width:20%;background-color: rgb(255,255,255,0.2);color:#444;text-align:right;}
-			
-			
+			.dg .cr .slider:hover {
+				cursor: ew-resize;
+				border-radius: 3px;
+				background-color:rgb(255,255,255,0);
+			}
+			.dg .c .slider-fg {
+				border-radius: 2px;
+				background: #1f80f7;
+			}
+			.dg .c .slider:hover .slider-fg {
+				border-radius: 2px;
+				background: #1f80f7;
+			}
+			.dg .cr.number input[type=text] {
+				border-left:0;
+				width:20%;
+				text-align:right;
+				border-radius: 2px;
+				border:1px solid rgb(0,0,0,0.3);
+				color:#333;
+				background-color: rgb(255,255,255,0.1);
+			}
 			.dg .cr.boolean {
-				border:0;padding:0;margin:0 0 2px 0;
-				background-color:rgb(0,0,0,0);
+				border:0;
+				padding:0;
+				margin:0 0 2px 0;
 				text-shadow:none;
 				color:#333;
+				background-color:rgb(255,255,255,0);
 			}
-			.dg .cr.boolean:hover {background-color:rgb(0,0,0,0);color:#333;}
-			.dg .cr.color {border-left: 0}
-			
-			
+			.dg .cr.boolean:hover {
+				color:#333;
+				background-color:rgb(255,255,255,0);
+			}
+			.dg .cr.color {
+				border-left: 0;
+			}
 			.dg .cr.function {
 				-moz-transition: background 0.2s ease-in,color 0.2s ease-out;
 				-webkit-transition: background 0.2s ease-in,color 0.2s ease-out;
 				-o-transition: background 0.2s ease-in,color 0.2s ease-out;
 				transition: background 0.2s ease-in,color 0.2s ease-out;
+				border:0;
+				padding:0;
+				margin:10px 1% 10px 1%;
 				width:46%;
-				border:0;padding:0;margin:10px 1% 10px 1%;
-				background-color:#444;
 				height:40px;
 				display:block;
 				text-align:center;
 				position:relative;
 				float:left;
 				clear:none;
-				color:#FFF;
 				border-radius: 5px;
-				border:1px solid #444;
+				color:#FFF;
+				background-color:#1f80f7;
+				border:1px solid #1f80f7;
 			}
-			.dg .cr.function:hover {color:#444;background-color:rgb(255,255,255,0);
-			border:1px solid #444;}
+			.dg .cr.function:hover {
+				color:#FFF;
+				background-color:rgb(255,255,255,0);
+				border:1px solid #1f80f7;
+			}
 			.dg .cr.function .property-name {
 				border:0;padding:0;
 				height:40px;
 				text-align: center;
-				font-size:14px;letter-spacing:2px;font-weight:600;
+				font-size:13px;letter-spacing:2px;font-weight:500;
 				line-height:40px;
 				text-shadow:none;
 			}
@@ -178,16 +204,22 @@
 			#about2 {
 				position: absolute;
 				bottom:20px;
-				left:40px;
-				width:200px;height:60px;
-				color:rgb(255,255,255,0.5);
+				left:20px;
+				width:300px;height:140px;
+				border-radius: 5px;
+				color:#333;
 				font-size:10px;
 				float:left;
+				background-color: rgb(255,255,255,0.6);
+				text-shadow:none;
+				padding:25px;
+				
+				
 			}
 			#about2 * {
 				float:left;
 				display:block;
-				width:200px;
+				width:100%;
 				font-size:10px;
 			}
 		</style>
@@ -197,7 +229,13 @@
 		<div id="gui2_container"></div>
 		<div id="timer"></div>
 		<div id="about">2023毕业设计 - 黔东南铜鼓纹生成系统 - 邵明</div>
-		<div id="about2"><a>鼠标操作</a><a>鼠标点击并拖动：旋转视角</a><a>鼠标滚轮：缩放画面</a></div>
+		<div id="about2">
+			<h1>说明：</h1>
+			<a>中心元素造型跟随主题改变，1-20:原生及传统纹样，21-30:现代纹样</a>
+			<h1>鼠标操作说明：</h1>
+			<a>鼠标点击并拖动：旋转视角</a>
+			<a>鼠标滚轮：缩放画面</a>
+		</div>
 		<script>
 			var timer = document.getElementById("timer");
 			timer.style.width = 30 + "%";
@@ -425,7 +463,6 @@
 				边缘元素二造型:1,
 				边缘元素三造型:1,
 				构图形状: '圆形',
-				说明: '中心元素跟随主题改变，前20个为原生纹样及传统纹样，后20个为现代纹样',
 			}
 			var sizes = {
 				中心图案尺寸: 300,
@@ -465,12 +502,10 @@
 			gui1_container.appendChild(gui.domElement);
 			var patternSet = gui.addFolder('纹样元素设置');patternSet.open();
 			patternSet.add(elements, '中心元素主题',themeOption).listen().onChange(updateElements);
-			patternSet.add(elements,'说明');
 			patternSet.add(elements,'中心元素造型',1,30,1).listen().onChange(updateElements);
 			patternSet.add(elements,'边缘元素一造型',1,100,1).listen().onChange(updateElements);
 			patternSet.add(elements,'边缘元素二造型',1,100,1).listen().onChange(updateElements);
 			patternSet.add(elements,'边缘元素三造型',1,100,1).listen().onChange(updateElements);
-			patternSet.add(elements, '构图形状',compositionOption).onChange(updateSizes);
 			elements['随机造型'] = randomElements;
 			patternSet.add(elements, '随机造型');
 			elements['随机主题造型'] = randomElementTheme;
@@ -490,6 +525,7 @@
 			gui2.domElement.id = 'gui2';
 			gui2_container.appendChild(gui2.domElement);
 			var sizeSet = gui2.addFolder('尺寸设置');sizeSet.open();
+			sizeSet.add(elements, '构图形状',compositionOption).onChange(updateSizes);
 			sizeSet.add(sizes,'中心图案尺寸',50,300,10).listen().onChange(updateSizes);
 			sizeSet.add(sizes,'边缘元素1尺寸',50,100,10).listen().onChange(updateSizes);
 			sizeSet.add(sizes,'边缘元素2尺寸',50,100,10).listen().onChange(updateSizes);
