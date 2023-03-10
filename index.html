@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>黔东南铜鼓纹生成系统</title>
+		<title>贵州铜鼓纹生成系统</title>
 		<link rel="icon" href="images/icon.ico" type="image/ico">
 		<script language="javascript" type="text/javascript" src="js/p5.min.js"></script>
 		<script src="js/dat.gui.min.js"></script>
@@ -11,7 +11,10 @@
 		<script src="js/OrbitControls.js"></script>
 		<script src="js/stats.min.js"></script>
 		<style>
-			body {padding: 0; margin:0;}
+			body {
+				padding: 0;
+				margin:0;
+			}
 			#gui1_container{
 				position:absolute;left:20px;top:20px;
 				padding:60px 50px 40px 50px;
@@ -395,7 +398,7 @@
 				//d4事业腾达_3
 				new THREE.TextureLoader().load("images/d/4/1.png"),new THREE.TextureLoader().load("images/d/4/2.png"),
 				new THREE.TextureLoader().load("images/d/4/3.png"),
-				//d5安宁平和_4
+				//d5团圆祥和_4
 				new THREE.TextureLoader().load("images/d/5/1.png"),new THREE.TextureLoader().load("images/d/5/2.png"),
 				new THREE.TextureLoader().load("images/d/5/3.png"),new THREE.TextureLoader().load("images/d/5/4.png"),
 				//d6多子多福_0
@@ -491,7 +494,7 @@
 			}
 			var cameraAngle = {
 			}
-			var themeOption = ['吉祥如意','辟邪消灾','健康长寿','事业腾达','安宁平和','多子多福','繁荣富强','无明显寓意'];
+			var themeOption = ['吉祥如意','辟邪消灾','健康长寿','事业腾达','团圆祥和','多子多福','繁荣富强','无明显寓意'];
 			var colorTheme = ['原生配色','传统配色','国潮配色'];
 			var colorOption = ['多种颜色','随机配色','单色','黑白','完全随机'];
 			var animationOption = ['无动效','自转+波动','仅自转','波动','轴旋转','扭转'];
@@ -724,7 +727,7 @@
 					case '辟邪消灾':centerUse = c2[elements.中心元素造型-1];break;
 					case '健康长寿':centerUse = c3[elements.中心元素造型-1];break;
 					case '事业腾达':centerUse = c4[elements.中心元素造型-1];break;
-					case '安宁平和':centerUse = c5[elements.中心元素造型-1];break;
+					case '团圆祥和':centerUse = c5[elements.中心元素造型-1];break;
 					case '多子多福':centerUse = c6[elements.中心元素造型-1];break;
 					case '繁荣富强':centerUse = c7[elements.中心元素造型-1];break;
 					case '无明显寓意':centerUse = c8[elements.中心元素造型-1];break;
