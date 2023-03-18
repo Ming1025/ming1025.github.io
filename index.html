@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>贵州铜鼓纹生成系统</title>
+		<title>贵州铜鼓纹参数化生成系统</title>
 		<link rel="icon" href="images/icon.ico" type="image/ico">
 		<script language="javascript" type="text/javascript" src="js/p5.min.js"></script>
 		<script src="js/dat.gui.min.js"></script>
@@ -17,7 +17,7 @@
 			}
 			#gui1_container{
 				position:absolute;left:20px;top:20px;
-				padding:60px 50px 40px 50px;
+				padding:50px 50px 30px 50px;
 				width:250px;
 				background-color:rgb(255,255,255,0.6);
 				border-radius: 5px;
@@ -25,7 +25,7 @@
 			}
 			#gui2_container{
 				position:absolute;right:20px;top:20px;
-				padding:60px 50px 40px 50px;
+				padding:50px 50px 30px 50px;
 				width:250px;
 				background-color:rgb(255,255,255,0.6);
 				border-radius: 5px;
@@ -231,7 +231,7 @@
 		<div id="gui1_container"></div>
 		<div id="gui2_container"></div>
 		<div id="timer"></div>
-		<div id="about">2023毕业设计 - 黔东南铜鼓纹生成系统 - 邵明</div>
+		<div id="about">2023毕业设计 - 贵州铜鼓纹参数化生成系统 - 邵明</div>
 		<div id="about2">
 			<h1>说明：</h1>
 			<a>中心元素造型跟随主题改变，1-20:原生及传统纹样，21-30:现代纹样</a>
@@ -460,7 +460,7 @@
 			var t3c5 = ['#C2713C','#34B8B5','#1D698A','#F8F7ED','#F7CF4E','#362B52','#E8B936','#CBE6D6','#20B0B6','#2BC5B1','#E0AE7F','#2E2542','#F8C2B0','#C3AC9D','#EABE83','#F7E4C2','#F4CA72','#C7895C','#DC563F','#D89867','#E8B426','#40785B','#3C628C','#E0BF89','#F3D64D','#DA8643','#26110C','#F9DB2D','#E0AC95','#FDF1EB'];
 			var t3c6 = ['#CDA59C','#1B1110','#E9B192','#BCD5E0','#E8A3BA','#FDFAF4','#1A1310','#CCB996','#E92B23','#4B1F0F','#BEA796','#286CA9','#DFF4F0','#DF4E2F','#E89241','#B3A978','#DD8F68','#CED2D5','#BCBFD1','#3FAAB5','#25437D','#D9BFA2','#E5EFEE','#233F33','#EBF0D1','#247D99','#30658C','#496F74','#CCC3CC','#0A8586'];
 			var elements = {
-				中心元素主题: '吉祥如意',
+				纹样主题: '吉祥如意',
 				中心元素造型:1,
 				边缘元素一造型:1,
 				边缘元素二造型:1,
@@ -469,6 +469,7 @@
 			}
 			var sizes = {
 				中心图案尺寸: 300,
+				边缘元素层数: 3,
 				边缘元素1尺寸: 80,
 				边缘元素2尺寸: 80,
 				边缘元素3尺寸: 80,
@@ -504,7 +505,7 @@
 			gui.domElement.id = 'gui1';
 			gui1_container.appendChild(gui.domElement);
 			var patternSet = gui.addFolder('纹样元素设置');patternSet.open();
-			patternSet.add(elements, '中心元素主题',themeOption).listen().onChange(updateElements);
+			patternSet.add(elements, '纹样主题',themeOption).listen().onChange(updateElements);
 			patternSet.add(elements,'中心元素造型',1,30,1).listen().onChange(updateElements);
 			patternSet.add(elements,'边缘元素一造型',1,100,1).listen().onChange(updateElements);
 			patternSet.add(elements,'边缘元素二造型',1,100,1).listen().onChange(updateElements);
@@ -530,6 +531,7 @@
 			var sizeSet = gui2.addFolder('尺寸设置');sizeSet.open();
 			sizeSet.add(elements, '构图形状',compositionOption).onChange(updateSizes);
 			sizeSet.add(sizes,'中心图案尺寸',50,300,10).listen().onChange(updateSizes);
+			sizeSet.add(sizes,'边缘元素层数',1,3,1).listen().onChange(updateSizes);
 			sizeSet.add(sizes,'边缘元素1尺寸',50,100,10).listen().onChange(updateSizes);
 			sizeSet.add(sizes,'边缘元素2尺寸',50,100,10).listen().onChange(updateSizes);
 			sizeSet.add(sizes,'边缘元素3尺寸',50,100,10).listen().onChange(updateSizes);
@@ -563,7 +565,7 @@
 			var bgColor,centerBgColor,ring1BgColor,ring2BgColor;
 			var line1Color,line2Color,line3Color,line4Color,line5Color,line6Color;
 			function randomElementTheme(){
-				elements.中心元素主题 = themeOption[Math.floor((Math.random()*8))];
+				elements.纹样主题 = themeOption[Math.floor((Math.random()*8))];
 				randomElements();
 			}
 			function randomElements(){
@@ -722,7 +724,7 @@
 				ring2Line2R.material = new THREE.MeshBasicMaterial({color:line5Color,opacity:1,side:THREE.DoubleSide});
 				ring3Line1R.material = new THREE.MeshBasicMaterial({color:line6Color,opacity:1,side:THREE.DoubleSide});
 				//纹样----------------------------------------------------------------------------------------------------------------------------------
-				switch(elements.中心元素主题){
+				switch(elements.纹样主题){
 					case '吉祥如意':centerUse = c1[elements.中心元素造型-1];break;
 					case '辟邪消灾':centerUse = c2[elements.中心元素造型-1];break;
 					case '健康长寿':centerUse = c3[elements.中心元素造型-1];break;
@@ -834,12 +836,14 @@
 			const centerBg = new THREE.Mesh();
 			const ring1Bg = new THREE.Mesh();
 			const ring2Bg = new THREE.Mesh();
+			const ring3Bg = new THREE.Mesh();
 			const centerLine = new THREE.Mesh();
 			const ring1Line1 = new THREE.Mesh();
 			const ring1Line2 = new THREE.Mesh();
 			const ring2Line1 = new THREE.Mesh();
 			const ring2Line2 = new THREE.Mesh();
 			const ring3Line1 = new THREE.Mesh();
+			const ring3Line2 = new THREE.Mesh();
 			const center = new THREE.Mesh();
 			const ring1 = new THREE.Mesh();
 			const ring2 = new THREE.Mesh();
@@ -853,6 +857,7 @@
 			const ring2Line1R = new THREE.Mesh();
 			const ring2Line2R = new THREE.Mesh();
 			const ring3Line1R = new THREE.Mesh();
+			const ring3Line2R = new THREE.Mesh();
 			randomElements();
 			randomColors();
 			updateElements();
@@ -901,9 +906,18 @@
 				ringGroup2.add(ring2Bg,ring2Line1,ring2Line2,ring2Line1R,ring2Line2R,ring2,ring2R);
 				ringGroup3.add(ring3Line1,ring3Line1R,ring3);
 				scene.add(centerGroup);
-				scene.add(ringGroup1);
-				scene.add(ringGroup2);
-				scene.add(ringGroup3);
+				if(sizes.边缘元素层数==1){
+				   scene.add(ringGroup1);
+				   }
+				if(sizes.边缘元素层数==2){
+					scene.add(ringGroup1);
+					scene.add(ringGroup2);
+				   }
+				if(sizes.边缘元素层数==3){
+					scene.add(ringGroup1);
+					scene.add(ringGroup2);
+					scene.add(ringGroup3);
+				   }
 			}
 			addScene();
 			//-------------------------------------------镜头及动画设置-------------------------------------------//
