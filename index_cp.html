@@ -486,7 +486,7 @@
 			var compositionOption = ['圆形','十二边形','八边形','六边形','五边形','正方形','三角形'];
 			//-------------------------------------------GUI-------------------------------------------//
 			var gui =new dat.GUI({autoPlace:false});
-            gui.width = 500;
+            gui.width = 300;
 			gui.domElement.id = 'gui1';
 			gui1_container.appendChild(gui.domElement);
 			gui.add(elements, '纹样主题',themeOption).listen().onChange(updateElements);
@@ -496,7 +496,7 @@
             
 			//-------------------------------------------GUI2-------------------------------------------//
 			var gui2 =new dat.GUI({autoPlace:false});
-            gui2.width = 500;
+            gui2.width = 300;
 			gui2.domElement.id = 'gui2';
 			gui2_container.appendChild(gui2.domElement);
             elements['随机造型'] = randomElements;
@@ -870,20 +870,20 @@
 			}
 			addScene();
 			//-------------------------------------------镜头及动画设置-------------------------------------------//
-			const camera = new THREE.PerspectiveCamera(45,window.innerWidth / window.innerHeight,1,4000);
+			const camera = new THREE.PerspectiveCamera(45,window.innerWidth / window.innerHeight,1,3000);
 			const controls = new THREE.OrbitControls(camera,renderer.domElement);
 			controls.enablePan = false;
 			controls.rotateSpeed = 0.5;
 			controls.minDistance = 2000;
-			controls.maxDistance = 3000;
+			controls.maxDistance = 2500;
 			//const stats = Stats();
 			//document.body.appendChild(stats.dom);
 			//stats.domElement.style.cssText = 'position:absolute;bottom:0px;right:20px;';
 			
-			camera.position.set(0,0,3000);
+			camera.position.set(0,0,2500);
 				camera.lookAt(0,0,0);
 			function cameraFront(){
-				camera.position.set(0,0,3000);
+				camera.position.set(0,0,2500);
 				camera.lookAt(0,0,0);
 			}
 			function cameraPerspective(){
