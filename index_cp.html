@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>贵州铜鼓纹参数化生成系统[手机预览]</title>
+		<link rel="icon" href="images/icon.ico" type="image/ico">
+		<script language="javascript" type="text/javascript" src="js/p5.min.js"></script>
+		<script src="js/dat.gui.min.js"></script>
+		<script src="js/three.js"></script>
+		<script src="js/OrbitControls.js"></script>
+		<script src="js/stats.min.js"></script>
+		<style>
+			body {
+				padding: 0;
+				margin:0;
+			}
+			#gui1_container{
+				position:absolute;left:10%;top:20px;
+				padding:0;
+				width:80%;
+				background-color:rgb(255,255,255,0.6);
+				border-radius: 5px;
+				text-shadow:none;
+			}
+			#gui2_container{
+				position:absolute;left:10%;bottom:40px;
+				padding:0;
+				width:80%;
+				background-color:rgb(255,255,255,0.6);
+				border-radius: 5px;
+				text-shadow:none;
+			}
+            #gui1{
+				width:100%;
+				background-color:rgb(255,255,255,0);
+				text-shadow:none;
+                text-align: center;
+                margin: 0 auto;
+			}
+            #gui2{
+				width:100%;
+				background-color:rgb(255,255,255,0);
+				text-shadow:none;
+                text-align: center;
+                margin: 0 auto;
+			}
+			.dg .main {
+			}
+			.dg.main .close-button {
+				-moz-transition: background 0.2s ease-in,color 0.2s ease-out;
+				-webkit-transition: background 0.2s ease-in,color 0.2s ease-out;
+				-o-transition: background 0.2s ease-in,color 0.2s ease-out;
+				transition: background 0.2s ease-in,color 0.2s ease-out;
+                width:100%;
+				border:0;padding:0;margin:0;
+				border-radius:0;
+				height: 20px;
+				cursor: pointer;
+				color:#FFF;background-color:rgb(0,0,0,0);
+				text-shadow:none;
+				text-align:center;
+				display:block;
+				position:absolute;
+				top:-20px;
+				float:left;
+				clear:none;
+                font-size: 5px;
+			}
+			.dg.main .close-button:hover {
+				color:#FFF;
+				background-color:rgb(0,0,0,0);
+			}
+			.dg ul {
+				border:0;padding:0;margin:0 0 0 0;
+				width:100%;
+			}
+			.dg ul li {
+				border:0;padding:0;margin:0;
+				background-color:rgb(255,255,255,0);
+                width:100%;
+			}
+			.dg li.title {
+				border:0;padding:0 0 5px 20px;margin:20px 0 20px 0;
+				border-bottom: 1px solid #333;
+				background-color:rgb(255,0,0,0);
+				color:#333;
+				font-size:20px;
+				text-shadow:none;
+				list-style:circle;
+				cursor: pointer;
+			}
+			.dg .cr {}
+			.dg .cr.string {
+				border:0;padding:0;margin:0;
+				text-shadow:none;
+				color:#333;
+				background-color:rgb(0,0,0,0);
+			}
+			.dg .cr.string input[type=text] {
+				border:0;padding:0;margin:0;
+				height:30px;
+				width:100%;
+				overflow: auto;
+				color:#333;
+				background-color:rgb(255,255,255,1);
+			}
+			.dg .cr.number {
+				border:0;
+				padding:0;
+				margin:0 0 2px 0;
+				text-shadow:none;
+				color:#333;
+				background-color:rgb(0,0,0,0);
+			}
+			.dg .cr .slider {
+				border:0;
+				padding:1px;
+				margin:4px 0 0 0;
+				cursor: ew-resize;
+				border-radius: 3px;
+				border:1px solid rgb(0,0,0,0.3);
+				background-color:rgb(255,255,255,0);
+			}
+			.dg .cr .slider:hover {
+				cursor: ew-resize;
+				border-radius: 3px;
+				background-color:rgb(255,255,255,0);
+			}
+			.dg .c .slider-fg {
+				border-radius: 2px;
+				background: #1f80f7;
+			}
+			.dg .c .slider:hover .slider-fg {
+				border-radius: 2px;
+				background: #1f80f7;
+			}
+			.dg .cr.number input[type=text] {
+				border-left:0;
+				width:20%;
+				text-align:right;
+				border-radius: 2px;
+				border:1px solid rgb(0,0,0,0.3);
+				color:#333;
+				background-color: rgb(255,255,255,0.1);
+			}
+			.dg .cr.boolean {
+				border:0;
+				padding:0;
+				margin:0 0 2px 0;
+				text-shadow:none;
+				color:#333;
+				background-color:rgb(255,255,255,0);
+			}
+			.dg .cr.boolean:hover {
+				color:#333;
+				background-color:rgb(255,255,255,0);
+			}
+			.dg .cr.color {
+				border-left: 0;
+			}
+			.dg .cr.function {
+				-moz-transition: background 0.2s ease-in,color 0.2s ease-out;
+				-webkit-transition: background 0.2s ease-in,color 0.2s ease-out;
+				-o-transition: background 0.2s ease-in,color 0.2s ease-out;
+				transition: background 0.2s ease-in,color 0.2s ease-out;
+				border:0;
+				padding:0;
+				margin:10px 1% 10px 1%;
+				width:46%;
+				height:40px;
+				display:block;
+				text-align:center;
+				position:relative;
+				float:left;
+				clear:none;
+				border-radius: 5px;
+				color:#FFF;
+				background-color:#1f80f7;
+				border:1px solid #1f80f7;
+			}
+			.dg .cr.function:hover {
+				color:#FFF;
+				background-color:rgb(255,255,255,0);
+				border:1px solid #1f80f7;
+			}
+			.dg .cr.function .property-name {
+				border:0;padding:0;
+				height:40px;
+				text-align: center;
+				font-size:13px;letter-spacing:2px;font-weight:500;
+				line-height:40px;
+				text-shadow:none;
+			}
+			.dg .cr.function.property-name:hover {color:#444;background-color:rgb(255,255,255,0);}
+			
+			#timer {
+				-moz-transition: background 0.2s ease-in,color 0.2s ease-out;
+				-webkit-transition: background 0.2s ease-in,color 0.2s ease-out;
+				-o-transition: background 0.2s ease-in,color 0.2s ease-out;
+				transition: background 0.2s ease-in,color 0.2s ease-out;
+				position: absolute;
+				bottom:0;
+				left:0;
+				height:3px;
+				width:10%;
+				background: #444444;
+				z-index:3;
+			}
+			#about {
+				position: absolute;
+                width:100%;
+				bottom:20px;
+				color:rgb(255,255,255,0.5);
+				font-size:10px;
+                text-align: center;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id="gui1_container"></div>
+		<div id="gui2_container"></div>
+		<div id="timer"></div>
+		<div id="about">2023毕业设计 - 贵州铜鼓纹参数化生成系统[手机预览] - 邵明</div>
+		<script>
+			var timer = document.getElementById("timer");
+			timer.style.width = 30 + "%";
+			var i = 0;
+			function sliderStart(){
+				if (i < 99.9) {i=i+0.2;timer.style.width = i + "%";}
+				else {i=0;randomElementTheme();randomColorTheme();}
+			}
+			function sliderStop(){i=0;}
+			//-------------------------------------------贴图库-------------------------------------------//
+			var c1 = [
+				new THREE.TextureLoader().load("images/c/1/1.png"),new THREE.TextureLoader().load("images/c/1/2.png"),
+				new THREE.TextureLoader().load("images/c/1/3.png"),new THREE.TextureLoader().load("images/c/1/4.png"),
+				new THREE.TextureLoader().load("images/c/1/5.png"),new THREE.TextureLoader().load("images/c/1/6.png"),
+				new THREE.TextureLoader().load("images/c/1/7.png"),new THREE.TextureLoader().load("images/c/1/8.png"),
+				new THREE.TextureLoader().load("images/c/1/9.png"),new THREE.TextureLoader().load("images/c/1/10.png"),
+				new THREE.TextureLoader().load("images/c/1/11.png"),new THREE.TextureLoader().load("images/c/1/12.png"),
+				new THREE.TextureLoader().load("images/c/1/13.png"),new THREE.TextureLoader().load("images/c/1/14.png"),
+				new THREE.TextureLoader().load("images/c/1/15.png"),new THREE.TextureLoader().load("images/c/1/16.png"),
+				new THREE.TextureLoader().load("images/c/1/17.png"),new THREE.TextureLoader().load("images/c/1/18.png"),
+				new THREE.TextureLoader().load("images/c/1/19.png"),new THREE.TextureLoader().load("images/c/1/20.png"),
+				new THREE.TextureLoader().load("images/c/1/21.png"),new THREE.TextureLoader().load("images/c/1/22.png"),
+				new THREE.TextureLoader().load("images/c/1/23.png"),new THREE.TextureLoader().load("images/c/1/24.png"),
+				new THREE.TextureLoader().load("images/c/1/25.png"),new THREE.TextureLoader().load("images/c/1/26.png"),
+				new THREE.TextureLoader().load("images/c/1/27.png"),new THREE.TextureLoader().load("images/c/1/28.png"),
+				new THREE.TextureLoader().load("images/c/1/29.png"),new THREE.TextureLoader().load("images/c/1/30.png")];
+			var c2 = [
+				new THREE.TextureLoader().load("images/c/2/1.png"),new THREE.TextureLoader().load("images/c/2/2.png"),
+				new THREE.TextureLoader().load("images/c/2/3.png"),new THREE.TextureLoader().load("images/c/2/4.png"),
+				new THREE.TextureLoader().load("images/c/2/5.png"),new THREE.TextureLoader().load("images/c/2/6.png"),
+				new THREE.TextureLoader().load("images/c/2/7.png"),new THREE.TextureLoader().load("images/c/2/8.png"),
+				new THREE.TextureLoader().load("images/c/2/9.png"),new THREE.TextureLoader().load("images/c/2/10.png"),
+				new THREE.TextureLoader().load("images/c/2/11.png"),new THREE.TextureLoader().load("images/c/2/12.png"),
+				new THREE.TextureLoader().load("images/c/2/13.png"),new THREE.TextureLoader().load("images/c/2/14.png"),
+				new THREE.TextureLoader().load("images/c/2/15.png"),new THREE.TextureLoader().load("images/c/2/16.png"),
+				new THREE.TextureLoader().load("images/c/2/17.png"),new THREE.TextureLoader().load("images/c/2/18.png"),
+				new THREE.TextureLoader().load("images/c/2/19.png"),new THREE.TextureLoader().load("images/c/2/20.png"),
+				new THREE.TextureLoader().load("images/c/2/21.png"),new THREE.TextureLoader().load("images/c/2/22.png"),
+				new THREE.TextureLoader().load("images/c/2/23.png"),new THREE.TextureLoader().load("images/c/2/24.png"),
+				new THREE.TextureLoader().load("images/c/2/25.png"),new THREE.TextureLoader().load("images/c/2/26.png"),
+				new THREE.TextureLoader().load("images/c/2/27.png"),new THREE.TextureLoader().load("images/c/2/28.png"),
+				new THREE.TextureLoader().load("images/c/2/29.png"),new THREE.TextureLoader().load("images/c/2/30.png")];
+			var c3 = [
+				new THREE.TextureLoader().load("images/c/3/1.png"),new THREE.TextureLoader().load("images/c/3/2.png"),
+				new THREE.TextureLoader().load("images/c/3/3.png"),new THREE.TextureLoader().load("images/c/3/4.png"),
+				new THREE.TextureLoader().load("images/c/3/5.png"),new THREE.TextureLoader().load("images/c/3/6.png"),
+				new THREE.TextureLoader().load("images/c/3/7.png"),new THREE.TextureLoader().load("images/c/3/8.png"),
+				new THREE.TextureLoader().load("images/c/3/9.png"),new THREE.TextureLoader().load("images/c/3/10.png"),
+				new THREE.TextureLoader().load("images/c/3/11.png"),new THREE.TextureLoader().load("images/c/3/12.png"),
+				new THREE.TextureLoader().load("images/c/3/13.png"),new THREE.TextureLoader().load("images/c/3/14.png"),
+				new THREE.TextureLoader().load("images/c/3/15.png"),new THREE.TextureLoader().load("images/c/3/16.png"),
+				new THREE.TextureLoader().load("images/c/3/17.png"),new THREE.TextureLoader().load("images/c/3/18.png"),
+				new THREE.TextureLoader().load("images/c/3/19.png"),new THREE.TextureLoader().load("images/c/3/20.png"),
+				new THREE.TextureLoader().load("images/c/3/21.png"),new THREE.TextureLoader().load("images/c/3/22.png"),
+				new THREE.TextureLoader().load("images/c/3/23.png"),new THREE.TextureLoader().load("images/c/3/24.png"),
+				new THREE.TextureLoader().load("images/c/3/25.png"),new THREE.TextureLoader().load("images/c/3/26.png"),
+				new THREE.TextureLoader().load("images/c/3/27.png"),new THREE.TextureLoader().load("images/c/3/28.png"),
+				new THREE.TextureLoader().load("images/c/3/29.png"),new THREE.TextureLoader().load("images/c/3/30.png")];
+			var c4 = [
+				new THREE.TextureLoader().load("images/c/4/1.png"),new THREE.TextureLoader().load("images/c/4/2.png"),
+				new THREE.TextureLoader().load("images/c/4/3.png"),new THREE.TextureLoader().load("images/c/4/4.png"),
+				new THREE.TextureLoader().load("images/c/4/5.png"),new THREE.TextureLoader().load("images/c/4/6.png"),
+				new THREE.TextureLoader().load("images/c/4/7.png"),new THREE.TextureLoader().load("images/c/4/8.png"),
+				new THREE.TextureLoader().load("images/c/4/9.png"),new THREE.TextureLoader().load("images/c/4/10.png"),
+				new THREE.TextureLoader().load("images/c/4/11.png"),new THREE.TextureLoader().load("images/c/4/12.png"),
+				new THREE.TextureLoader().load("images/c/4/13.png"),new THREE.TextureLoader().load("images/c/4/14.png"),
+				new THREE.TextureLoader().load("images/c/4/15.png"),new THREE.TextureLoader().load("images/c/4/16.png"),
+				new THREE.TextureLoader().load("images/c/4/17.png"),new THREE.TextureLoader().load("images/c/4/18.png"),
+				new THREE.TextureLoader().load("images/c/4/19.png"),new THREE.TextureLoader().load("images/c/4/20.png"),
+				new THREE.TextureLoader().load("images/c/4/21.png"),new THREE.TextureLoader().load("images/c/4/22.png"),
+				new THREE.TextureLoader().load("images/c/4/23.png"),new THREE.TextureLoader().load("images/c/4/24.png"),
+				new THREE.TextureLoader().load("images/c/4/25.png"),new THREE.TextureLoader().load("images/c/4/26.png"),
+				new THREE.TextureLoader().load("images/c/4/27.png"),new THREE.TextureLoader().load("images/c/4/28.png"),
+				new THREE.TextureLoader().load("images/c/4/29.png"),new THREE.TextureLoader().load("images/c/4/30.png")];
+			var c5 = [
+				new THREE.TextureLoader().load("images/c/5/1.png"),new THREE.TextureLoader().load("images/c/5/2.png"),
+				new THREE.TextureLoader().load("images/c/5/3.png"),new THREE.TextureLoader().load("images/c/5/4.png"),
+				new THREE.TextureLoader().load("images/c/5/5.png"),new THREE.TextureLoader().load("images/c/5/6.png"),
+				new THREE.TextureLoader().load("images/c/5/7.png"),new THREE.TextureLoader().load("images/c/5/8.png"),
+				new THREE.TextureLoader().load("images/c/5/9.png"),new THREE.TextureLoader().load("images/c/5/10.png"),
+				new THREE.TextureLoader().load("images/c/5/11.png"),new THREE.TextureLoader().load("images/c/5/12.png"),
+				new THREE.TextureLoader().load("images/c/5/13.png"),new THREE.TextureLoader().load("images/c/5/14.png"),
+				new THREE.TextureLoader().load("images/c/5/15.png"),new THREE.TextureLoader().load("images/c/5/16.png"),
+				new THREE.TextureLoader().load("images/c/5/17.png"),new THREE.TextureLoader().load("images/c/5/18.png"),
+				new THREE.TextureLoader().load("images/c/5/19.png"),new THREE.TextureLoader().load("images/c/5/20.png"),
+				new THREE.TextureLoader().load("images/c/5/21.png"),new THREE.TextureLoader().load("images/c/5/22.png"),
+				new THREE.TextureLoader().load("images/c/5/23.png"),new THREE.TextureLoader().load("images/c/5/24.png"),
+				new THREE.TextureLoader().load("images/c/5/25.png"),new THREE.TextureLoader().load("images/c/5/26.png"),
+				new THREE.TextureLoader().load("images/c/5/27.png"),new THREE.TextureLoader().load("images/c/5/28.png"),
+				new THREE.TextureLoader().load("images/c/5/29.png"),new THREE.TextureLoader().load("images/c/5/30.png")];
+			var c6 = [
+				new THREE.TextureLoader().load("images/c/6/1.png"),new THREE.TextureLoader().load("images/c/6/2.png"),
+				new THREE.TextureLoader().load("images/c/6/3.png"),new THREE.TextureLoader().load("images/c/6/4.png"),
+				new THREE.TextureLoader().load("images/c/6/5.png"),new THREE.TextureLoader().load("images/c/6/6.png"),
+				new THREE.TextureLoader().load("images/c/6/7.png"),new THREE.TextureLoader().load("images/c/6/8.png"),
+				new THREE.TextureLoader().load("images/c/6/9.png"),new THREE.TextureLoader().load("images/c/6/10.png"),
+				new THREE.TextureLoader().load("images/c/6/11.png"),new THREE.TextureLoader().load("images/c/6/12.png"),
+				new THREE.TextureLoader().load("images/c/6/13.png"),new THREE.TextureLoader().load("images/c/6/14.png"),
+				new THREE.TextureLoader().load("images/c/6/15.png"),new THREE.TextureLoader().load("images/c/6/16.png"),
+				new THREE.TextureLoader().load("images/c/6/17.png"),new THREE.TextureLoader().load("images/c/6/18.png"),
+				new THREE.TextureLoader().load("images/c/6/19.png"),new THREE.TextureLoader().load("images/c/6/20.png"),
+				new THREE.TextureLoader().load("images/c/6/21.png"),new THREE.TextureLoader().load("images/c/6/22.png"),
+				new THREE.TextureLoader().load("images/c/6/23.png"),new THREE.TextureLoader().load("images/c/6/24.png"),
+				new THREE.TextureLoader().load("images/c/6/25.png"),new THREE.TextureLoader().load("images/c/6/26.png"),
+				new THREE.TextureLoader().load("images/c/6/27.png"),new THREE.TextureLoader().load("images/c/6/28.png"),
+				new THREE.TextureLoader().load("images/c/6/29.png"),new THREE.TextureLoader().load("images/c/6/30.png")];
+			var c7 = [
+				new THREE.TextureLoader().load("images/c/7/1.png"),new THREE.TextureLoader().load("images/c/7/2.png"),
+				new THREE.TextureLoader().load("images/c/7/3.png"),new THREE.TextureLoader().load("images/c/7/4.png"),
+				new THREE.TextureLoader().load("images/c/7/5.png"),new THREE.TextureLoader().load("images/c/7/6.png"),
+				new THREE.TextureLoader().load("images/c/7/7.png"),new THREE.TextureLoader().load("images/c/7/8.png"),
+				new THREE.TextureLoader().load("images/c/7/9.png"),new THREE.TextureLoader().load("images/c/7/10.png"),
+				new THREE.TextureLoader().load("images/c/7/11.png"),new THREE.TextureLoader().load("images/c/7/12.png"),
+				new THREE.TextureLoader().load("images/c/7/13.png"),new THREE.TextureLoader().load("images/c/7/14.png"),
+				new THREE.TextureLoader().load("images/c/7/15.png"),new THREE.TextureLoader().load("images/c/7/16.png"),
+				new THREE.TextureLoader().load("images/c/7/17.png"),new THREE.TextureLoader().load("images/c/7/18.png"),
+				new THREE.TextureLoader().load("images/c/7/19.png"),new THREE.TextureLoader().load("images/c/7/20.png"),
+				new THREE.TextureLoader().load("images/c/7/21.png"),new THREE.TextureLoader().load("images/c/7/22.png"),
+				new THREE.TextureLoader().load("images/c/7/23.png"),new THREE.TextureLoader().load("images/c/7/24.png"),
+				new THREE.TextureLoader().load("images/c/7/25.png"),new THREE.TextureLoader().load("images/c/7/26.png"),
+				new THREE.TextureLoader().load("images/c/7/27.png"),new THREE.TextureLoader().load("images/c/7/28.png"),
+				new THREE.TextureLoader().load("images/c/7/29.png"),new THREE.TextureLoader().load("images/c/7/30.png")];
+			var c8 = [
+				new THREE.TextureLoader().load("images/c/8/1.png"),new THREE.TextureLoader().load("images/c/8/2.png"),
+				new THREE.TextureLoader().load("images/c/8/3.png"),new THREE.TextureLoader().load("images/c/8/4.png"),
+				new THREE.TextureLoader().load("images/c/8/5.png"),new THREE.TextureLoader().load("images/c/8/6.png"),
+				new THREE.TextureLoader().load("images/c/8/7.png"),new THREE.TextureLoader().load("images/c/8/8.png"),
+				new THREE.TextureLoader().load("images/c/8/9.png"),new THREE.TextureLoader().load("images/c/8/10.png"),
+				new THREE.TextureLoader().load("images/c/8/11.png"),new THREE.TextureLoader().load("images/c/8/12.png"),
+				new THREE.TextureLoader().load("images/c/8/13.png"),new THREE.TextureLoader().load("images/c/8/14.png"),
+				new THREE.TextureLoader().load("images/c/8/15.png"),new THREE.TextureLoader().load("images/c/8/16.png"),
+				new THREE.TextureLoader().load("images/c/8/17.png"),new THREE.TextureLoader().load("images/c/8/18.png"),
+				new THREE.TextureLoader().load("images/c/8/19.png"),new THREE.TextureLoader().load("images/c/8/20.png"),
+				new THREE.TextureLoader().load("images/c/8/21.png"),new THREE.TextureLoader().load("images/c/8/22.png"),
+				new THREE.TextureLoader().load("images/c/8/23.png"),new THREE.TextureLoader().load("images/c/8/24.png"),
+				new THREE.TextureLoader().load("images/c/8/25.png"),new THREE.TextureLoader().load("images/c/8/26.png"),
+				new THREE.TextureLoader().load("images/c/8/27.png"),new THREE.TextureLoader().load("images/c/8/28.png"),
+				new THREE.TextureLoader().load("images/c/8/29.png"),new THREE.TextureLoader().load("images/c/8/30.png")];
+			
+			var d = [
+				//d1吉祥如意_20
+				new THREE.TextureLoader().load("images/d/1/1.png"),new THREE.TextureLoader().load("images/d/1/2.png"),
+				new THREE.TextureLoader().load("images/d/1/3.png"),new THREE.TextureLoader().load("images/d/1/4.png"),
+				new THREE.TextureLoader().load("images/d/1/5.png"),new THREE.TextureLoader().load("images/d/1/6.png"),
+				new THREE.TextureLoader().load("images/d/1/7.png"),new THREE.TextureLoader().load("images/d/1/8.png"),
+				new THREE.TextureLoader().load("images/d/1/9.png"),new THREE.TextureLoader().load("images/d/1/10.png"),
+				new THREE.TextureLoader().load("images/d/1/11.png"),new THREE.TextureLoader().load("images/d/1/12.png"),
+				new THREE.TextureLoader().load("images/d/1/13.png"),new THREE.TextureLoader().load("images/d/1/14.png"),
+				new THREE.TextureLoader().load("images/d/1/15.png"),new THREE.TextureLoader().load("images/d/1/16.png"),
+				new THREE.TextureLoader().load("images/d/1/17.png"),new THREE.TextureLoader().load("images/d/1/18.png"),
+				new THREE.TextureLoader().load("images/d/1/19.png"),new THREE.TextureLoader().load("images/d/1/20.png"),
+				//d2辟邪消灾_0
+				//d3健康长寿_5
+				new THREE.TextureLoader().load("images/d/3/1.png"),new THREE.TextureLoader().load("images/d/3/2.png"),
+				new THREE.TextureLoader().load("images/d/3/3.png"),new THREE.TextureLoader().load("images/d/3/4.png"),
+				new THREE.TextureLoader().load("images/d/3/5.png"),
+				//d4事业腾达_3
+				new THREE.TextureLoader().load("images/d/4/1.png"),new THREE.TextureLoader().load("images/d/4/2.png"),
+				new THREE.TextureLoader().load("images/d/4/3.png"),
+				//d5团圆祥和_4
+				new THREE.TextureLoader().load("images/d/5/1.png"),new THREE.TextureLoader().load("images/d/5/2.png"),
+				new THREE.TextureLoader().load("images/d/5/3.png"),new THREE.TextureLoader().load("images/d/5/4.png"),
+				//d6多子多福_0
+				//d7繁荣富强_3
+				new THREE.TextureLoader().load("images/d/7/1.png"),new THREE.TextureLoader().load("images/d/7/2.png"),
+				new THREE.TextureLoader().load("images/d/7/3.png"),
+				//d8无明显寓意_65
+				new THREE.TextureLoader().load("images/d/8/1.png"),new THREE.TextureLoader().load("images/d/8/2.png"),
+				new THREE.TextureLoader().load("images/d/8/3.png"),new THREE.TextureLoader().load("images/d/8/4.png"),
+				new THREE.TextureLoader().load("images/d/8/5.png"),new THREE.TextureLoader().load("images/d/8/6.png"),
+				new THREE.TextureLoader().load("images/d/8/7.png"),new THREE.TextureLoader().load("images/d/8/8.png"),
+				new THREE.TextureLoader().load("images/d/8/9.png"),new THREE.TextureLoader().load("images/d/8/10.png"),
+				new THREE.TextureLoader().load("images/d/8/11.png"),new THREE.TextureLoader().load("images/d/8/12.png"),
+				new THREE.TextureLoader().load("images/d/8/13.png"),new THREE.TextureLoader().load("images/d/8/14.png"),
+				new THREE.TextureLoader().load("images/d/8/15.png"),new THREE.TextureLoader().load("images/d/8/16.png"),
+				new THREE.TextureLoader().load("images/d/8/17.png"),new THREE.TextureLoader().load("images/d/8/18.png"),
+				new THREE.TextureLoader().load("images/d/8/19.png"),new THREE.TextureLoader().load("images/d/8/20.png"),
+				new THREE.TextureLoader().load("images/d/8/21.png"),new THREE.TextureLoader().load("images/d/8/22.png"),
+				new THREE.TextureLoader().load("images/d/8/23.png"),new THREE.TextureLoader().load("images/d/8/24.png"),
+				new THREE.TextureLoader().load("images/d/8/25.png"),new THREE.TextureLoader().load("images/d/8/26.png"),
+				new THREE.TextureLoader().load("images/d/8/27.png"),new THREE.TextureLoader().load("images/d/8/28.png"),
+				new THREE.TextureLoader().load("images/d/8/29.png"),new THREE.TextureLoader().load("images/d/8/30.png"),
+				new THREE.TextureLoader().load("images/d/8/31.png"),new THREE.TextureLoader().load("images/d/8/32.png"),
+				new THREE.TextureLoader().load("images/d/8/33.png"),new THREE.TextureLoader().load("images/d/8/34.png"),
+				new THREE.TextureLoader().load("images/d/8/35.png"),new THREE.TextureLoader().load("images/d/8/36.png"),
+				new THREE.TextureLoader().load("images/d/8/37.png"),new THREE.TextureLoader().load("images/d/8/38.png"),
+				new THREE.TextureLoader().load("images/d/8/39.png"),new THREE.TextureLoader().load("images/d/8/40.png"),
+				new THREE.TextureLoader().load("images/d/8/41.png"),new THREE.TextureLoader().load("images/d/8/42.png"),
+				new THREE.TextureLoader().load("images/d/8/43.png"),new THREE.TextureLoader().load("images/d/8/44.png"),
+				new THREE.TextureLoader().load("images/d/8/45.png"),new THREE.TextureLoader().load("images/d/8/46.png"),
+				new THREE.TextureLoader().load("images/d/8/47.png"),new THREE.TextureLoader().load("images/d/8/48.png"),
+				new THREE.TextureLoader().load("images/d/8/49.png"),new THREE.TextureLoader().load("images/d/8/50.png"),
+				new THREE.TextureLoader().load("images/d/8/51.png"),new THREE.TextureLoader().load("images/d/8/52.png"),
+				new THREE.TextureLoader().load("images/d/8/53.png"),new THREE.TextureLoader().load("images/d/8/54.png"),
+				new THREE.TextureLoader().load("images/d/8/55.png"),new THREE.TextureLoader().load("images/d/8/56.png"),
+				new THREE.TextureLoader().load("images/d/8/57.png"),new THREE.TextureLoader().load("images/d/8/58.png"),
+				new THREE.TextureLoader().load("images/d/8/59.png"),new THREE.TextureLoader().load("images/d/8/60.png"),
+				new THREE.TextureLoader().load("images/d/8/61.png"),new THREE.TextureLoader().load("images/d/8/62.png"),
+				new THREE.TextureLoader().load("images/d/8/63.png"),new THREE.TextureLoader().load("images/d/8/64.png"),
+				new THREE.TextureLoader().load("images/d/8/65.png")
+			];
+			//-------------------------------------------配色库-------------------------------------------//
+			var t1c1 = ['#081027','#0B1226','#0B0B0A','#B52635','#15111C','#C3050B','#B5291E','#33214E','#1C366F','#424569','#101A0D','#2D3340','#332331','#54824D','#BE0409','#2C2224','#032D95','#B00C37','#E3A404','#201934','#CAB693','#161618','#121415','#40B4AD','#0B0A0A','#0C0A0F','#4C2438','#3A80EE','#4F2134','#020105'];
+			var t1c2 = ['#C8DFE9','#1F2D4E','#3C211B','#0E1214','#362341','#1F1815','#472218','#150D1B','#1857A2','#33243E','#294226','#B0A2A0','#3B6172','#B0A963','#3D1718','#C61A21','#2B1B2A','#CD265D','#C68803','#501C30','#2D42C1','#425F6B','#414241','#B7CBC9','#334834','#CB1533','#283685','#2248CE','#AF3E51','#4B5E75'];
+			var t1c3 = ['#9FABBA','#1F2D4E','#415546','#4B1E23','#446083','#116054','#F45E30','#484A88','#0B2D21','#130A1F','#498A48','#151A22','#C03530','#364628','#CDDDD5','#226E57','#C2A091','#F04C85','#331D16','#AB343D','#BB7B58','#BB9291','#EEEDE4','#2E7B75','#ECEEDD','#1E434E','#AF293F','#21299D','#28131D','#1E1F3E'];
+			var t1c4 = ['#5C7181','#B9C6DA','#B66351','#0F4E6E','#EBE1EA','#C18F24','#497D60','#4B9DD7','#EACCDC','#AB838F','#ADC155','#D5C7CC','#D0BFC7','#E85248','#C89C74','#D3A241','#426461','#4B2437','#D0D5DA','#D96261','#322241','#B82A29','#EFE395','#2B3D46','#C38F69','#E0DBE6','#3664C0','#C9C4F2','#B0729D','#B0A2A6'];
+			var t1c5 = ['#5C7181','#B9C6DA','#C3AE9A','#F0ECDC','#C09FB0','#CB9B8F','#BA6F76','#AE5892','#C35B91','#E4D9E2','#C5EC83','#517C6F','#E460A0','#C13120','#B54445','#C49394','#D2E2DC','#DE8BA3','#317283','#415068','#18D2D5','#CDC5CA','#BC9E59','#012524','#E6D09D','#41779A','#C46F7E','#D64A69','#F7CAE9','#DADCDF'];
+			var t1c6 = ['#303D4F','#487190','#47948D','#CD9B84','#B43C4E','#F0EAE0','#EDD1D0','#DCD6D9','#F1CE60','#4F73AC','#B7B1B7','#B14A5D','#C51F7B','#C5CB8E','#3F6561','#E9E1E1','#BE3127','#EFDCE7','#C5284E','#C3B2AE','#B7141C','#C19032','#BDAFAD','#0340A0','#2D1669','#BA9E99','#E3DDE7','#281657','#3E427F','#C51521'];
+			var t2c1 = ['#F8FAF4','#D13621','#ACBBA8','#EDEAEB','#F1E2C0','#EE493F','#162646','#FEFBDA','#5D5C26','#DBCC85','#CEC078','#2B688F','#E2A702','#D5C058','#D0805D','#F1E7D9','#110E13','#A7A291','#F9F4E5','#2B284C','#63B8BB','#132043','#FACB19','#FBF6EE','#330301','#EBBA2F','#060205','#0C0707','#FCF2C5','#DCE6F2'];
+			var t2c2 = ['#231F1B','#3B2720','#EEEEEB','#DC7A45','#D6936D','#F2C168','#CFC5BC','#F6D593','#E4EBD7','#546628','#D9CD93','#2C6275','#000102','#FEF7EB','#AF9790','#DAD6CB','#474255','#AE7448','#293B2C','#261A28','#D0AD72','#558D84','#B56431','#3F614B','#F85502','#B09A95','#B83F19','#E8EDED','#3A7554','#09A1F4'];
+			var t2c3 = ['#437A86','#C2AC67','#111110','#2C603A','#B0ADA5','#B96336','#AB8D81','#EEAE43','#387F9D','#AD8D3D','#2B3415','#4D6734','#B96B16','#B4824E','#516B77','#3C4B56','#CA9A99','#E6D9C5','#E8C995','#A8959C','#EFE9C7','#2A6471','#140A04','#181D13','#B51604','#DAAC76','#E9BF3C','#BF3025','#B47579','#EC2540'];
+			var t2c4 = ['#BBD5CC','#4E916A','#F5CA7E','#C5B4B8','#324853','#C89964','#485356','#2F261E','#161D2B','#D1B55A','#4F6126','#E7E0A8','#D2B04A','#C4C8BD','#C6C1BE','#537878','#B87C49','#DA9C7C','#C25432','#5C6374','#BB6346','#B9C0C9','#0A2461','#E5CBB0','#F7E6B0','#CEC1BD','#C68028','#49271F','#BD3F2D','#34217C'];
+			var t2c5 = ['#BB3131','#E4CDA8','#485A54','#341413','#4A7179','#EFD6AB','#4992A5','#C05C37','#B79C67','#303214','#B9A14B','#111B0C','#E0D295','#C6A492','#2B303D','#AAADA7','#B92E25','#4B442D','#C2937F','#CFC7CB','#3C1E27','#E3CD61','#488982','#CD643D','#F7E6B0','#B27754','#4C3329','#DFD247','#EBD166','#FD5BB2'];
+			var t2c6 = ['#B29D97','#B36A43','#DF545E','#BA5644','#F62640','#483711','#C42A27','#0879BA','#D04130','#B13D21','#A66524','#BEAA55','#464948','#444F3B','#AE5948','#B34446','#D9CBD1','#4D6E73','#C67853','#AE724C','#456A8F','#C53D34','#442920','#C3987C','#F3A52D','#5D6060','#F0DE97','#BC7785','#D2412A','#C89EC3'];
+			var t3c1 = ['#E21517','#2C6479','#D42416','#FE2015','#E76962','#F54321','#F4E2CF','#192C36','#2A2C4D','#D85132','#091F3B','#D42821','#120C07','#F2D388','#152021','#F7B771','#4A96A7','#46A3B8','#37889E','#010202','#10D6D0','#CE4036','#213860','#ED8F57','#1E1618','#340D13','#D42F23','#BA3725','#1A1515','#EB170E'];
+			var t3c2 = ['#FAEFE6','#EFAD3D','#230807','#F8E356','#2A231E','#071811','#F4A57E','#447F72','#F67750','#F3E1C1','#AE5C41','#F2A215','#DD3B38','#EFE6DC','#B73025','#46A988','#BDCAC0','#1A2F3D','#F7E9C2','#223943','#F2DB72','#F6F7DC','#14274F','#BD6B34','#15A2DD','#BE363C','#E0DADA','#F3D7B8','#436B6D','#F6B711'];
+			var t3c3 = ['#FAC854','#BC3B2B','#02FBFA','#E7863D','#BF1614','#F8BC5B','#2180C0','#BC2014','#E7E6B6','#F8A09A','#C08566','#F0D59F','#F9E94A','#EB9C56','#3F685C','#227766','#F8EED1','#3C718A','#271614','#F0F4ED','#EA1513','#23130B','#5790B0','#369B88','#EE6C1F','#03DFC4','#F4EB66','#DF9447','#F7F3E7','#375359'];
+			var t3c4 = ['#4C483D','#EEE497','#F1B513','#2694A6','#F4F4F2','#DA8340','#E23E4E','#DA704B','#F6DA51','#E2B364','#F6DCB0','#FAF1DD','#DF812E','#487C8D','#F7E8E0','#D35B2F','#F4CA72','#F9F7F1','#E7AA40','#BB3822','#00146F','#E9733F','#AABECB','#FAE9D6','#C51E10','#EDC968','#ECA536','#472514','#D27D3F','#08ACA7'];
+			var t3c5 = ['#C2713C','#34B8B5','#1D698A','#F8F7ED','#F7CF4E','#362B52','#E8B936','#CBE6D6','#20B0B6','#2BC5B1','#E0AE7F','#2E2542','#F8C2B0','#C3AC9D','#EABE83','#F7E4C2','#F4CA72','#C7895C','#DC563F','#D89867','#E8B426','#40785B','#3C628C','#E0BF89','#F3D64D','#DA8643','#26110C','#F9DB2D','#E0AC95','#FDF1EB'];
+			var t3c6 = ['#CDA59C','#1B1110','#E9B192','#BCD5E0','#E8A3BA','#FDFAF4','#1A1310','#CCB996','#E92B23','#4B1F0F','#BEA796','#286CA9','#DFF4F0','#DF4E2F','#E89241','#B3A978','#DD8F68','#CED2D5','#BCBFD1','#3FAAB5','#25437D','#D9BFA2','#E5EFEE','#233F33','#EBF0D1','#247D99','#30658C','#496F74','#CCC3CC','#0A8586'];
+			var elements = {
+				纹样主题: '吉祥如意',
+				中心元素造型:1,
+				边缘元素一造型:1,
+				边缘元素二造型:1,
+				边缘元素三造型:1,
+				构图形状: '圆形',
+			}
+			var sizes = {
+				中心图案尺寸: 300,
+				边缘元素层数: 3,
+				边缘元素1尺寸: 80,
+				边缘元素2尺寸: 80,
+				边缘元素3尺寸: 80,
+				边缘元素1数量: 15,
+				边缘元素2数量: 18,
+				边缘元素3数量: 24,
+				图案间隔线距离: 10,
+				间隔线间距离: 20,
+				间隔线宽度: 4,
+				centerSeg: 64,
+			}
+			var colors = {
+				配色主题:'原生配色',
+				配色: 0,
+				配色设置: '多种颜色',
+				背景透明度:1,
+			}
+			var animations = {
+				幻灯片模式: true,
+				动画效果: '自转+波动',
+				动画速度: 1,
+				自转速度: 0.5,
+			}
+			var cameraAngle = {
+			}
+			var themeOption = ['吉祥如意','辟邪消灾','健康长寿','事业腾达','团圆祥和','多子多福','繁荣富强','无明显寓意'];
+			var colorTheme = ['原生配色','传统配色','国潮配色'];
+			var colorOption = ['多种颜色','随机配色','单色','黑白','完全随机'];
+			var animationOption = ['无动效','自转+波动','仅自转','波动','轴旋转','扭转'];
+			var compositionOption = ['圆形','十二边形','八边形','六边形','五边形','正方形','三角形'];
+			//-------------------------------------------GUI-------------------------------------------//
+			var gui =new dat.GUI({autoPlace:false});
+            gui.width = 500;
+			gui.domElement.id = 'gui1';
+			gui1_container.appendChild(gui.domElement);
+			gui.add(elements, '纹样主题',themeOption).listen().onChange(updateElements);
+            gui.add(colors, '配色主题',colorTheme).listen().onChange(updateElements);
+            gui.add(animations, '动画效果',animationOption).onChange(animate0);
+            gui.add(animations, '幻灯片模式');
+            
+			//-------------------------------------------GUI2-------------------------------------------//
+			var gui2 =new dat.GUI({autoPlace:false});
+            gui2.width = 500;
+			gui2.domElement.id = 'gui2';
+			gui2_container.appendChild(gui2.domElement);
+            elements['随机造型'] = randomElements;
+			gui2.add(elements, '随机造型');
+            colors['随机配色'] =randomColors;
+			gui2.add(colors,'随机配色');
+            
+			cameraAngle['正视视角'] = cameraFront;
+			gui2.add(cameraAngle, '正视视角');
+			cameraAngle['倾斜视角'] = cameraPerspective;
+			gui2.add(cameraAngle, '倾斜视角');
+			//截图---------------------------------------------------------
+			//-------------------------------------------绘制程序-------------------------------------------//
+			var centerColor,ring1Color,ring2Color,ring3Color;
+			var bgColor,centerBgColor,ring1BgColor,ring2BgColor;
+			var line1Color,line2Color,line3Color,line4Color,line5Color,line6Color;
+			function randomElementTheme(){
+				elements.纹样主题 = themeOption[Math.floor((Math.random()*8))];
+				randomElements();
+			}
+			function randomElements(){
+				elements.中心元素造型=Math.floor((Math.random()*30)+1);
+				elements.边缘元素一造型=Math.floor((Math.random()*100)+1);
+				elements.边缘元素二造型=Math.floor((Math.random()*100)+1);
+				elements.边缘元素三造型=Math.floor((Math.random()*100)+1);
+				updateElements();
+			}
+			
+			function randomColorTheme(){
+				colors.配色主题 = colorTheme[Math.floor((Math.random()*3))];
+				randomColors();
+			}
+			function randomColors(){
+				colors.配色=Math.floor((Math.random()*29)+1);
+				updateElements();
+			}
+			function defaultSize(){
+				sizes.中心图案尺寸 = 300;
+				sizes.边缘元素1尺寸 = 80;
+				sizes.边缘元素2尺寸 = 80;
+				sizes.边缘元素3尺寸 = 80;
+				sizes.边缘元素1数量 = 15;
+				sizes.边缘元素2数量 = 18;
+				sizes.边缘元素3数量 = 24;
+				sizes.图案间隔线距离 = 10;
+				sizes.间隔线间距离 = 20;
+				sizes.间隔线宽度 = 4;
+				updateElements();
+				updateSizes();
+			}
+			function randomSize(){
+				sizes.中心图案尺寸 = Math.floor((Math.random()*25)*10+50);
+				sizes.边缘元素1尺寸 = Math.floor((Math.random()*5)*10+50);
+				sizes.边缘元素2尺寸 = Math.floor((Math.random()*5)*10+50);
+				sizes.边缘元素3尺寸 = Math.floor((Math.random()*5)*10+50);
+				sizes.边缘元素1数量 = Math.floor((Math.random()*20)+4);
+				sizes.边缘元素2数量 = Math.floor((Math.random()*20)+4);
+				sizes.边缘元素3数量 = Math.floor((Math.random()*20)+4);
+				sizes.图案间隔线距离 = Math.floor((Math.random()*40)+10);
+				sizes.间隔线间距离 = Math.floor((Math.random()*50));
+				sizes.间隔线宽度 = Math.floor((Math.random()*9)+1);
+				updateElements();
+				updateSizes();
+			}
+			
+			function updateElements(){
+				var newColorSet = [];
+				if(colors.配色主题 == '原生配色'){
+					newColorSet = [t1c1[colors.配色-1],t1c2[colors.配色-1],t1c3[colors.配色-1],t1c4[colors.配色-1],t1c5[colors.配色-1],t1c6[colors.配色-1]];
+				   }
+				if(colors.配色主题 == '传统配色'){
+					newColorSet = [t2c1[colors.配色-1],t2c2[colors.配色-1],t2c3[colors.配色-1],t2c4[colors.配色-1],t2c5[colors.配色-1],t2c6[colors.配色-1]];
+				   }
+				if(colors.配色主题 == '国潮配色'){
+					newColorSet = [t3c1[colors.配色-1],t3c2[colors.配色-1],t3c3[colors.配色-1],t3c4[colors.配色-1],t3c5[colors.配色-1],t3c6[colors.配色-1]];
+				   }
+				if(colors.配色设置=='多种颜色'){
+					bgColor = newColorSet[0];
+					centerColor = newColorSet[1];
+					ring1Color = newColorSet[2];
+					ring2Color = newColorSet[2];
+					ring3Color = newColorSet[2];
+					centerBgColor = newColorSet[3];
+					ring1BgColor = newColorSet[4];
+					ring2BgColor = newColorSet[3]; 
+					line1Color = newColorSet[5];
+					line2Color = newColorSet[5];
+					line3Color = newColorSet[5];
+					line4Color = newColorSet[5];
+					line5Color = newColorSet[5];
+					line6Color = newColorSet[5];
+				}
+				else if(colors.配色设置=='随机配色'){
+					centerColor = newColorSet[Math.floor(Math.random()*4)];
+					ring1Color = newColorSet[Math.floor(Math.random()*4)];
+					ring2Color = newColorSet[Math.floor(Math.random()*4)];
+					ring3Color = newColorSet[Math.floor(Math.random()*4)];
+					bgColor = newColorSet[Math.floor(Math.random()*4)];
+					centerBgColor = newColorSet[Math.floor(Math.random()*4)];
+					ring1BgColor = newColorSet[Math.floor(Math.random()*4)];
+					ring2BgColor = newColorSet[Math.floor(Math.random()*4)];
+					line1Color = newColorSet[Math.floor(Math.random()*4)];
+					line2Color = newColorSet[Math.floor(Math.random()*4)];
+					line3Color = newColorSet[Math.floor(Math.random()*4)];
+					line4Color = newColorSet[Math.floor(Math.random()*4)];
+					line5Color = newColorSet[Math.floor(Math.random()*4)];
+					line6Color = newColorSet[Math.floor(Math.random()*4)];
+				}
+				else if(colors.配色设置=='单色'){
+					centerColor = newColorSet[0];
+					ring1Color = newColorSet[0];
+					ring2Color = newColorSet[0];
+					ring3Color = newColorSet[0];
+					bgColor = newColorSet[1];
+					centerBgColor = newColorSet[1];
+					ring1BgColor = newColorSet[1];
+					ring2BgColor = newColorSet[1];
+					line1Color = newColorSet[0];
+					line2Color = newColorSet[0];
+					line3Color = newColorSet[0];
+					line4Color = newColorSet[0];
+					line5Color = newColorSet[0];
+					line6Color = newColorSet[0];
+				}
+				else if(colors.配色设置=='黑白'){
+					centerColor = '#ffffff';
+					ring1Color = '#ffffff';
+					ring2Color = '#ffffff';
+					ring3Color = '#ffffff';
+					bgColor = '#000000';
+					centerBgColor = '#000000';
+					ring1BgColor = '#000000';
+					ring2BgColor = '#000000';
+					line1Color = '#ffffff';
+					line2Color = '#ffffff';
+					line3Color = '#ffffff';
+					line4Color = '#ffffff';
+					line5Color = '#ffffff';
+					line6Color = '#ffffff';
+				}
+				else if(colors.配色设置=='完全随机'){
+					centerColor = 0xFFFFFF*Math.random();
+					ring1Color = 0xFFFFFF*Math.random();
+					ring2Color = 0xFFFFFF*Math.random();
+					ring3Color = 0xFFFFFF*Math.random();
+					bgColor = 0xFFFFFF*Math.random();
+					centerBgColor = 0xFFFFFF*Math.random();
+					ring1BgColor = 0xFFFFFF*Math.random();
+					ring2BgColor = 0xFFFFFF*Math.random();
+					line1Color = 0xFFFFFF*Math.random();
+					line2Color = 0xFFFFFF*Math.random();
+					line3Color = 0xFFFFFF*Math.random();
+					line4Color = 0xFFFFFF*Math.random();
+					line5Color = 0xFFFFFF*Math.random();
+					line6Color = 0xFFFFFF*Math.random();
+				}
+				//背景
+			renderer.setClearColor(new THREE.Color(bgColor));
+				//纹样背景
+			centerBg.material = new THREE.MeshBasicMaterial({color:centerBgColor,transparent:true,opacity:colors.背景透明度,side:THREE.DoubleSide});
+			ring1Bg.material = new THREE.MeshBasicMaterial({color:ring1BgColor,transparent:true,opacity:colors.背景透明度,side:THREE.DoubleSide});
+			ring2Bg.material = new THREE.MeshBasicMaterial({color:ring2BgColor,transparent:true,opacity:colors.背景透明度,side:THREE.DoubleSide});
+				//间隔线
+				centerLine.material = new THREE.MeshBasicMaterial({color:line1Color,opacity:1,side:THREE.DoubleSide});
+				ring1Line1.material = new THREE.MeshBasicMaterial({color:line2Color,opacity:1,side:THREE.DoubleSide});
+				ring1Line2.material = new THREE.MeshBasicMaterial({color:line3Color,opacity:1,side:THREE.DoubleSide});
+				ring2Line1.material = new THREE.MeshBasicMaterial({color:line4Color,opacity:1,side:THREE.DoubleSide});
+				ring2Line2.material = new THREE.MeshBasicMaterial({color:line5Color,opacity:1,side:THREE.DoubleSide});
+				ring3Line1.material = new THREE.MeshBasicMaterial({color:line6Color,opacity:1,side:THREE.DoubleSide});
+				centerLineR.material = new THREE.MeshBasicMaterial({color:line1Color,opacity:1,side:THREE.DoubleSide});
+				ring1Line1R.material = new THREE.MeshBasicMaterial({color:line2Color,opacity:1,side:THREE.DoubleSide});
+				ring1Line2R.material = new THREE.MeshBasicMaterial({color:line3Color,opacity:1,side:THREE.DoubleSide});
+				ring2Line1R.material = new THREE.MeshBasicMaterial({color:line4Color,opacity:1,side:THREE.DoubleSide});
+				ring2Line2R.material = new THREE.MeshBasicMaterial({color:line5Color,opacity:1,side:THREE.DoubleSide});
+				ring3Line1R.material = new THREE.MeshBasicMaterial({color:line6Color,opacity:1,side:THREE.DoubleSide});
+				//纹样----------------------------------------------------------------------------------------------------------------------------------
+				switch(elements.纹样主题){
+					case '吉祥如意':centerUse = c1[elements.中心元素造型-1];break;
+					case '辟邪消灾':centerUse = c2[elements.中心元素造型-1];break;
+					case '健康长寿':centerUse = c3[elements.中心元素造型-1];break;
+					case '事业腾达':centerUse = c4[elements.中心元素造型-1];break;
+					case '团圆祥和':centerUse = c5[elements.中心元素造型-1];break;
+					case '多子多福':centerUse = c6[elements.中心元素造型-1];break;
+					case '繁荣富强':centerUse = c7[elements.中心元素造型-1];break;
+					case '无明显寓意':centerUse = c8[elements.中心元素造型-1];break;
+					   }
+				const centerTexture = centerUse;
+				center.material = new THREE.MeshBasicMaterial( {map:centerTexture,transparent:true,opacity:1,color:centerColor,side:THREE.DoubleSide} );
+				centerR.material = new THREE.MeshBasicMaterial( {map:centerTexture,transparent:true,opacity:1,color:centerColor,side:THREE.DoubleSide} );
+				
+				ring1Use = d[elements.边缘元素一造型-1];
+				var ring1Texture = ring1Use;
+				ring1Texture.rotation = Math.PI;
+				ring1Texture.wrapS = THREE.RepeatWrapping;
+				ring1Texture.wrapT = THREE.RepeatWrapping;
+				ring1Texture.repeat.x=sizes.边缘元素1数量;
+				ring1.material = new THREE.MeshBasicMaterial({color:ring1Color,transparent:true,opacity:1,map:ring1Texture,side:THREE.DoubleSide});
+				ring1R.material = new THREE.MeshBasicMaterial({color:ring1Color,transparent:true,opacity:1,map:ring1Texture,side:THREE.DoubleSide});
+				ring2Use = d[elements.边缘元素二造型-1];
+				var ring2Texture = ring2Use;
+				ring2Texture.rotation = Math.PI;
+				ring2Texture.wrapS = THREE.RepeatWrapping;
+				ring2Texture.wrapT = THREE.RepeatWrapping;
+				ring2Texture.repeat.x=sizes.边缘元素2数量;
+				ring2.material = new THREE.MeshBasicMaterial({color:ring2Color,transparent:true,opacity:1,map:ring2Texture,side:THREE.DoubleSide});
+				ring2R.material = new THREE.MeshBasicMaterial({color:ring2Color,transparent:true,opacity:1,map:ring2Texture,side:THREE.DoubleSide});
+				ring3Use = d[elements.边缘元素三造型-1];
+				var ring3Texture = ring3Use;
+				ring3Texture.rotation = Math.PI;
+				ring3Texture.wrapS = THREE.RepeatWrapping;
+				ring3Texture.wrapT = THREE.RepeatWrapping;
+				ring3Texture.repeat.x=sizes.边缘元素3数量;
+				ring3.material = new THREE.MeshBasicMaterial({color:ring3Color,transparent:true,opacity:1,map:ring3Texture,side:THREE.DoubleSide});
+				addScene();
+			}
+			function updateSizes(){
+				var ring1BgIn = sizes.中心图案尺寸+sizes.图案间隔线距离+sizes.间隔线间距离;
+				var ring1BgOut = sizes.中心图案尺寸+sizes.边缘元素1尺寸+sizes.间隔线间距离+sizes.图案间隔线距离*3;
+				var ring2BgIn = sizes.中心图案尺寸+sizes.边缘元素1尺寸+sizes.间隔线间距离*2+sizes.图案间隔线距离*3;
+				var ring2BgOut = sizes.中心图案尺寸+sizes.边缘元素1尺寸+sizes.边缘元素2尺寸+sizes.间隔线间距离*2+sizes.图案间隔线距离*5;
+				var ring3BgIn = sizes.中心图案尺寸+sizes.边缘元素1尺寸+sizes.边缘元素2尺寸+sizes.间隔线间距离*3+sizes.图案间隔线距离*5;
+				var ring3BgOut = sizes.中心图案尺寸+sizes.边缘元素1尺寸+sizes.边缘元素2尺寸+sizes.边缘元素3尺寸+sizes.间隔线间距离*3+sizes.图案间隔线距离*7;
+				var seg = 64;
+				switch(elements.构图形状){
+					case '圆形':seg = 64;break;
+					case '十二边形':seg = 12;break;
+					case '八边形':seg = 8;break;
+					case '六边形':seg = 6;break;
+					case '五边形':seg = 5;break;
+					case '正方形':seg = 4;break;
+					case '三角形':seg = 3;break;
+					   }
+				
+				centerBg.geometry = new THREE.CircleGeometry(sizes.中心图案尺寸+sizes.图案间隔线距离,seg);
+				centerLine.geometry = new THREE.RingGeometry(sizes.中心图案尺寸+sizes.图案间隔线距离-sizes.间隔线宽度,sizes.中心图案尺寸+sizes.图案间隔线距离+sizes.间隔线宽度,seg);
+				
+				
+				ring1Bg.geometry = new THREE.RingGeometry(ring1BgIn,ring1BgOut,seg);
+				ring2Bg.geometry = new THREE.RingGeometry(ring2BgIn,ring2BgOut,seg);
+				
+				ring1Line1.geometry = new THREE.RingGeometry(ring1BgIn-sizes.间隔线宽度,ring1BgIn+sizes.间隔线宽度,seg);
+				ring1Line2.geometry = new THREE.RingGeometry(ring1BgOut-sizes.间隔线宽度,ring1BgOut+sizes.间隔线宽度,seg);
+				ring2Line1.geometry = new THREE.RingGeometry(ring2BgIn-sizes.间隔线宽度,ring2BgIn+sizes.间隔线宽度,seg);
+				ring2Line2.geometry = new THREE.RingGeometry(ring2BgOut-sizes.间隔线宽度,ring2BgOut+sizes.间隔线宽度,seg);
+				ring3Line1.geometry = new THREE.RingGeometry(ring3BgIn-sizes.间隔线宽度,ring3BgIn+sizes.间隔线宽度,seg);
+				ring1Line1R.geometry = new THREE.RingGeometry(ring1BgIn-sizes.间隔线宽度,ring1BgIn+sizes.间隔线宽度,seg);
+				ring1Line2R.geometry = new THREE.RingGeometry(ring1BgOut-sizes.间隔线宽度,ring1BgOut+sizes.间隔线宽度,seg);
+				ring2Line1R.geometry = new THREE.RingGeometry(ring2BgIn-sizes.间隔线宽度,ring2BgIn+sizes.间隔线宽度,seg);
+				ring2Line2R.geometry = new THREE.RingGeometry(ring2BgOut-sizes.间隔线宽度,ring2BgOut+sizes.间隔线宽度,seg);
+				ring3Line1R.geometry = new THREE.RingGeometry(ring3BgIn-sizes.间隔线宽度,ring3BgIn+sizes.间隔线宽度,seg);
+				
+				center.geometry = new THREE.CircleGeometry(sizes.中心图案尺寸,seg);
+				centerR.geometry = new THREE.CircleGeometry(sizes.中心图案尺寸,seg);
+				let ring1Geo = new THREE.PlaneGeometry(128,128,seg,16);
+				
+    			ring1Geo.center();
+    			bend(ring1Geo,ring1BgIn+sizes.图案间隔线距离,ring1BgOut-sizes.图案间隔线距离);
+    			ring1.geometry.dispose();
+    			ring1.geometry = ring1Geo;
+				ring1R.geometry.dispose();
+    			ring1R.geometry = ring1Geo;
+				let ring2Geo = new THREE.PlaneGeometry(128,128,seg,16);
+    			ring2Geo.center();
+    			bend(ring2Geo,ring2BgIn+sizes.图案间隔线距离,ring2BgOut-sizes.图案间隔线距离);
+    			ring2.geometry.dispose();
+    			ring2.geometry = ring2Geo;
+				ring2R.geometry.dispose();
+    			ring2R.geometry = ring2Geo;
+				let ring3Geo = new THREE.PlaneGeometry(128,128,seg,16);
+    			ring3Geo.center();
+    			bend(ring3Geo,ring3BgIn+sizes.图案间隔线距离,ring3BgOut-sizes.图案间隔线距离);
+    			ring3.geometry.dispose();
+    			ring3.geometry = ring3Geo;
+				addScene();
+			}
+			//-------------------------------------------基础环境设置-------------------------------------------//
+			const scene = new THREE.Scene();
+			const renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight);
+			document.body.appendChild(renderer.domElement);
+			var centerGroup = new THREE.Group();
+			var ringGroup1 = new THREE.Group();
+			var ringGroup2 = new THREE.Group();
+			var ringGroup3 = new THREE.Group();
+			//-------------------------------------------CENTER-------------------------------------------//
+			const centerBg = new THREE.Mesh();
+			const ring1Bg = new THREE.Mesh();
+			const ring2Bg = new THREE.Mesh();
+			const ring3Bg = new THREE.Mesh();
+			const centerLine = new THREE.Mesh();
+			const ring1Line1 = new THREE.Mesh();
+			const ring1Line2 = new THREE.Mesh();
+			const ring2Line1 = new THREE.Mesh();
+			const ring2Line2 = new THREE.Mesh();
+			const ring3Line1 = new THREE.Mesh();
+			const ring3Line2 = new THREE.Mesh();
+			const center = new THREE.Mesh();
+			const ring1 = new THREE.Mesh();
+			const ring2 = new THREE.Mesh();
+			const ring3 = new THREE.Mesh();
+			const centerR = new THREE.Mesh();
+			const ring1R = new THREE.Mesh();
+			const ring2R = new THREE.Mesh();
+			const centerLineR = new THREE.Mesh();
+			const ring1Line1R = new THREE.Mesh();
+			const ring1Line2R = new THREE.Mesh();
+			const ring2Line1R = new THREE.Mesh();
+			const ring2Line2R = new THREE.Mesh();
+			const ring3Line1R = new THREE.Mesh();
+			const ring3Line2R = new THREE.Mesh();
+			randomElements();
+			randomColors();
+			updateElements();
+			updateSizes();
+			center.position.z = 1;
+			ring1.position.z = 1;
+			ring2.position.z = 1;
+			ring3.position.z = 0;
+			centerLine.position.z = 1;
+			ring1Line1.position.z = 1;
+			ring1Line2.position.z = 1;
+			ring2Line1.position.z = 1;
+			ring2Line2.position.z = 1;
+			ring3Line1.position.z = 1;
+			centerR.position.z = -1;
+			ring1R.position.z = -1;
+			ring2R.position.z = -1;
+			centerLineR.position.z = -1;
+			ring1Line1R.position.z = -1;
+			ring1Line2R.position.z = -1;
+			ring2Line1R.position.z = -1;
+			ring2Line2R.position.z = -1;
+			ring3Line1R.position.z = -1;
+			//-------------------------------------------RING2-------------------------------------------//
+			function bend(g, rMin, rMax) {
+  				let pos = g.attributes.position;
+  				let uv = g.attributes.uv;
+  				let v3 = new THREE.Vector3();
+  				let v2 = new THREE.Vector2();
+  				let fullTurn = Math.PI*2;
+  				for(let i = 0; i < pos.count; i++){
+    		v2.fromBufferAttribute(uv,i);
+    		let a = fullTurn * v2.x;
+    		let r = THREE.MathUtils.lerp(rMax, rMin, v2.y);
+    		pos.setXY(i, Math.cos(a)*r, Math.sin(a)*r);
+  		}
+	}
+			//-------------------------------------------Add-------------------------------------------//
+			function addScene(){
+				scene.remove(centerGroup);
+				scene.remove(ringGroup1);
+				scene.remove(ringGroup2);
+				scene.remove(ringGroup3);
+				centerGroup.add(centerBg,centerLine,center,centerR);
+				ringGroup1.add(ring1Bg,ring1Line1,ring1Line2,ring1Line1R,ring1Line2R,ring1,ring1R);
+				ringGroup2.add(ring2Bg,ring2Line1,ring2Line2,ring2Line1R,ring2Line2R,ring2,ring2R);
+				ringGroup3.add(ring3Line1,ring3Line1R,ring3);
+				scene.add(centerGroup);
+				if(sizes.边缘元素层数==1){
+				   scene.add(ringGroup1);
+				   }
+				if(sizes.边缘元素层数==2){
+					scene.add(ringGroup1);
+					scene.add(ringGroup2);
+				   }
+				if(sizes.边缘元素层数==3){
+					scene.add(ringGroup1);
+					scene.add(ringGroup2);
+					scene.add(ringGroup3);
+				   }
+			}
+			addScene();
+			//-------------------------------------------镜头及动画设置-------------------------------------------//
+			const camera = new THREE.PerspectiveCamera(45,window.innerWidth / window.innerHeight,1,4000);
+			const controls = new THREE.OrbitControls(camera,renderer.domElement);
+			controls.enablePan = false;
+			controls.rotateSpeed = 0.5;
+			controls.minDistance = 2000;
+			controls.maxDistance = 3000;
+			//const stats = Stats();
+			//document.body.appendChild(stats.dom);
+			//stats.domElement.style.cssText = 'position:absolute;bottom:0px;right:20px;';
+			
+			camera.position.set(0,0,3000);
+				camera.lookAt(0,0,0);
+			function cameraFront(){
+				camera.position.set(0,0,3000);
+				camera.lookAt(0,0,0);
+			}
+			function cameraPerspective(){
+				camera.position.set(1363.5585,-1363.5585,2298.135);
+				camera.lookAt(0,0,0);
+			}
+			
+			var moveSpeedAdd = 0.01;
+			var centerSpeed = 1;
+			var ring1Speed = 1.05;
+			var ring2Speed = 1.1;
+			var ring3Speed = 1.15;
+			
+			var toggle0 = true;
+			var toggle1 = true;
+			var toggle2 = true;
+			var toggle3 = true;
+			
+			function animate0(){
+					centerGroup.position.set(0,0,0);
+					ringGroup1.position.set(0,0,0);
+					ringGroup2.position.set(0,0,0);
+					ringGroup3.position.set(0,0,0);
+					centerGroup.rotation.x = 0;
+					ringGroup1.rotation.x = 0;
+					ringGroup2.rotation.x = 0;
+					ringGroup3.rotation.x = 0;
+					centerGroup.rotation.y = 0;
+					ringGroup1.rotation.y = 0;
+					ringGroup2.rotation.y = 0;
+					ringGroup3.rotation.y = 0;
+					moveSpeedAdd = 0.01;
+					centerSpeed = 1;
+					ring1Speed = 1.05;
+					ring2Speed = 1.1;
+					ring3Speed = 1.15;
+					toggle0 = true;
+					toggle1 = true;
+					toggle2 = true;
+					toggle3 = true;
+			}
+			//-------------------------------------------动画-------------------------------------------//
+			animate();
+			function animate() {
+				if(animations.幻灯片模式==true){sliderStart();}
+				else{sliderStop();}
+					if(animations.动画效果=='无动效'){animate0();
+											  centerGroup.rotation.z =0;
+											   ringGroup1.rotation.z =0;
+											   ringGroup2.rotation.z =0;
+											   ringGroup3.rotation.z =0;
+											  }
+					if(animations.动画效果=='自转+波动'){
+						centerGroup.rotation.z -= Math.PI*animations.自转速度*0.001;
+						ringGroup1.rotation.z += Math.PI*animations.自转速度*0.001;
+						ringGroup2.rotation.z -= Math.PI*animations.自转速度*0.001;
+						ringGroup3.rotation.z += Math.PI*animations.自转速度*0.001;
+						if(toggle1 == true){animate0();toggle1 = false;}
+						centerGroup.position.z += centerSpeed;
+						//centerGroup.position.y -= centerSpeed;
+						if(centerGroup.position.z>0){centerSpeed -= moveSpeedAdd*animations.动画速度;};
+						if(centerGroup.position.z<0){centerSpeed += moveSpeedAdd*animations.动画速度;};
+					
+						ringGroup1.position.z += ring1Speed;
+						if(ringGroup1.position.z>0){ring1Speed -= moveSpeedAdd*animations.动画速度;};
+						if(ringGroup1.position.z<0){ring1Speed += moveSpeedAdd*animations.动画速度;};
+						ringGroup2.position.z += ring2Speed;
+						if(ringGroup2.position.z>0){ring2Speed -= moveSpeedAdd*animations.动画速度;};
+						if(ringGroup2.position.z<0){ring2Speed += moveSpeedAdd*animations.动画速度;};
+						ringGroup3.position.z += ring3Speed;
+						if(ringGroup3.position.z>0){ring3Speed -= moveSpeedAdd*animations.动画速度;};
+						if(ringGroup3.position.z<0){ring3Speed += moveSpeedAdd*animations.动画速度;};
+					}
+					if(animations.动画效果=='仅自转'){
+						centerGroup.rotation.z -= Math.PI*animations.自转速度*0.001;
+						ringGroup1.rotation.z += Math.PI*animations.自转速度*0.001;
+						ringGroup2.rotation.z -= Math.PI*animations.自转速度*0.001;
+						ringGroup3.rotation.z += Math.PI*animations.自转速度*0.001;
+					}
+					if(animations.动画效果=='波动'){
+						if(toggle1 == true){animate0();toggle1 = false;}
+						centerGroup.position.z += centerSpeed;
+						//centerGroup.position.y -= centerSpeed;
+						if(centerGroup.position.z>0){centerSpeed -= moveSpeedAdd*animations.动画速度;};
+						if(centerGroup.position.z<0){centerSpeed += moveSpeedAdd*animations.动画速度;};
+					
+						ringGroup1.position.z += ring1Speed;
+						if(ringGroup1.position.z>0){ring1Speed -= moveSpeedAdd*animations.动画速度;};
+						if(ringGroup1.position.z<0){ring1Speed += moveSpeedAdd*animations.动画速度;};
+						ringGroup2.position.z += ring2Speed;
+						if(ringGroup2.position.z>0){ring2Speed -= moveSpeedAdd*animations.动画速度;};
+						if(ringGroup2.position.z<0){ring2Speed += moveSpeedAdd*animations.动画速度;};
+						ringGroup3.position.z += ring3Speed;
+						if(ringGroup3.position.z>0){ring3Speed -= moveSpeedAdd*animations.动画速度;};
+						if(ringGroup3.position.z<0){ring3Speed += moveSpeedAdd*animations.动画速度;};
+					}
+					if(animations.动画效果=='轴旋转'){
+						if(toggle3 == true){animate0();toggle3 = false;}
+						centerGroup.rotation.y += Math.PI*animations.动画速度*0.0005;
+						ringGroup1.rotation.y -= Math.PI*animations.动画速度*0.001;
+						ringGroup2.rotation.y += Math.PI*animations.动画速度*0.0015;
+						ringGroup3.rotation.y -= Math.PI*animations.动画速度*0.002;
+					}
+					if(animations.动画效果=='扭转'){
+						if(toggle2 == true){animate0();toggle2 = false;}
+						centerGroup.rotation.x += Math.PI*animations.动画速度*0.001;
+						centerGroup.rotation.y += Math.PI*animations.动画速度*0.001;
+						ringGroup1.rotation.x -= Math.PI*animations.动画速度*0.001;
+						ringGroup1.rotation.y += Math.PI*animations.动画速度*0.001;
+						ringGroup2.rotation.x += Math.PI*animations.动画速度*0.001;
+						ringGroup2.rotation.y -= Math.PI*animations.动画速度*0.001;
+						ringGroup3.rotation.x -= Math.PI*animations.动画速度*0.001;
+						ringGroup3.rotation.y -= Math.PI*animations.动画速度*0.001;
+					}
+					
+				requestAnimationFrame( animate );
+				renderer.render( scene, camera );
+				stats.update();
+			};
+			//截图------------------------------------------------------------------------------------------
+			function shot(){
+				let image = new Image();
+				renderer.render(scene, camera);
+				let imgData = renderer.domElement.toDataURL("image/png");
+				image.src = imgData;
+				 var dlLink = document.createElement('a');
+				dlLink.download = '下载';
+				dlLink.href = imgData;
+				dlLink.dataset.downloadurl = ["image/png", dlLink.download, dlLink.href].join(':');
+				document.body.appendChild(dlLink);
+				dlLink.click();
+				document.body.removeChild(dlLink);
+			}
+		</script>
+	</body>
+</html>
