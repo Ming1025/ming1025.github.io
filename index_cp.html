@@ -166,7 +166,7 @@
 				transition: background 0.2s ease-in,color 0.2s ease-out;
 				border:0;
 				padding:0;
-				margin:10px 1% 10px 1%;
+				margin:5px 1% 5px 1%;
 				width:46%;
 				height:40px;
 				display:block;
@@ -870,20 +870,20 @@
 			}
 			addScene();
 			//-------------------------------------------镜头及动画设置-------------------------------------------//
-			const camera = new THREE.PerspectiveCamera(45,window.innerWidth / window.innerHeight,1,3000);
+			const camera = new THREE.PerspectiveCamera(45,window.innerWidth / window.innerHeight,1,4000);
 			const controls = new THREE.OrbitControls(camera,renderer.domElement);
 			controls.enablePan = false;
 			controls.rotateSpeed = 0.5;
-			controls.minDistance = 2000;
-			controls.maxDistance = 2500;
+			controls.minDistance = 2500;
+			controls.maxDistance = 3500;
 			//const stats = Stats();
 			//document.body.appendChild(stats.dom);
 			//stats.domElement.style.cssText = 'position:absolute;bottom:0px;right:20px;';
 			
-			camera.position.set(0,0,2500);
+			camera.position.set(0,0,3000);
 				camera.lookAt(0,0,0);
 			function cameraFront(){
-				camera.position.set(0,0,2500);
+				camera.position.set(0,0,3000);
 				camera.lookAt(0,0,0);
 			}
 			function cameraPerspective(){
