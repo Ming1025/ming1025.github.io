@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>贵州铜鼓纹参数化生成系统[手机预览]</title>
+		<title>贵州铜鼓纹参数化生成系统[预览]</title>
 		<link rel="icon" href="images/icon.ico" type="image/ico">
 		<script language="javascript" type="text/javascript" src="js/p5.min.js"></script>
 		<script src="js/dat.gui.min.js"></script>
@@ -210,19 +210,25 @@
 			#about {
 				position: absolute;
                 width:100%;
-				bottom:20px;
-				color:rgb(255,255,255,0.5);
-				font-size:10px;
+				bottom:0px;
+				color:rgb(255,255,255,0.8);
+				font-size:8px;
                 text-align: center;
+                line-height:10px;
 			}
-
+            #about.p {
+				height:10px;
+			}
 		</style>
 	</head>
 	<body>
 		<div id="gui1_container"></div>
 		<div id="gui2_container"></div>
 		<div id="timer"></div>
-		<div id="about">2023毕业设计 - 贵州铜鼓纹参数化生成系统[手机预览] - 邵明</div>
+		<div id="about">
+            <p>由于系统搭建于Github，纹样加载速度可能较慢，请耐心等待或切换外网</p>
+            <p>2023毕业设计 - 贵州铜鼓纹参数化生成系统[预览] - 邵明</p>
+        </div>
 		<script>
 			var timer = document.getElementById("timer");
 			timer.style.width = 30 + "%";
@@ -811,25 +817,26 @@
 			randomColors();
 			updateElements();
 			updateSizes();
-			center.position.z = 1;
-			ring1.position.z = 1;
-			ring2.position.z = 1;
+            var doubleSideD = 2;
+			center.position.z = doubleSideD;
+			ring1.position.z = doubleSideD;
+			ring2.position.z = doubleSideD;
 			ring3.position.z = 0;
-			centerLine.position.z = 1;
-			ring1Line1.position.z = 1;
-			ring1Line2.position.z = 1;
-			ring2Line1.position.z = 1;
-			ring2Line2.position.z = 1;
-			ring3Line1.position.z = 1;
-			centerR.position.z = -1;
-			ring1R.position.z = -1;
-			ring2R.position.z = -1;
-			centerLineR.position.z = -1;
-			ring1Line1R.position.z = -1;
-			ring1Line2R.position.z = -1;
-			ring2Line1R.position.z = -1;
-			ring2Line2R.position.z = -1;
-			ring3Line1R.position.z = -1;
+			centerLine.position.z = doubleSideD;
+			ring1Line1.position.z = doubleSideD;
+			ring1Line2.position.z = doubleSideD;
+			ring2Line1.position.z = doubleSideD;
+			ring2Line2.position.z = doubleSideD;
+			ring3Line1.position.z = doubleSideD;
+			centerR.position.z = -doubleSideD;
+			ring1R.position.z = -doubleSideD;
+			ring2R.position.z = -doubleSideD;
+			centerLineR.position.z = -doubleSideD;
+			ring1Line1R.position.z = -doubleSideD;
+			ring1Line2R.position.z = -doubleSideD;
+			ring2Line1R.position.z = -doubleSideD;
+			ring2Line2R.position.z = -doubleSideD;
+			ring3Line1R.position.z = -doubleSideD;
 			//-------------------------------------------RING2-------------------------------------------//
 			function bend(g, rMin, rMax) {
   				let pos = g.attributes.position;
@@ -870,11 +877,11 @@
 			}
 			addScene();
 			//-------------------------------------------镜头及动画设置-------------------------------------------//
-			const camera = new THREE.PerspectiveCamera(45,window.innerWidth / window.innerHeight,1,4000);
+			const camera = new THREE.PerspectiveCamera(45,window.innerWidth / window.innerHeight,1,5000);
 			const controls = new THREE.OrbitControls(camera,renderer.domElement);
 			controls.enablePan = false;
 			controls.rotateSpeed = 0.5;
-			controls.minDistance = 2500;
+			controls.minDistance = 2800;
 			controls.maxDistance = 3500;
 			//const stats = Stats();
 			//document.body.appendChild(stats.dom);
